@@ -1,0 +1,23 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head profile="http://www.w3.org/2005/10/profile">
+        <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+        <title>{% if page.title %}{{ page.title }} - {% endif %}David A Roberts</title>
+        {% include head.html %}
+        {% if page.head %}{{ page.head }}{% endif %}
+    </head>
+    <body>
+        <div class="container">
+            <h1 class="alt align-right"><a href="/">David A Roberts</a></h1>
+            <hr />
+            <div class="span-17 colborder align-justify">
+                {{ content }}
+            </div>
+            <div class="span-6 last align-justify">{% include sidebar.html %}</div>
+            <hr />
+            <div class="align-center">{% include footer.html %}</div>
+        </div>
+    </body>
+</html>
+
