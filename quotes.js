@@ -50,5 +50,5 @@ $(document).ready(function() {
     var quote = quotes[i][0];
     var author = quotes[i][1];
     var url = quotes[i][2];
-    $('#quote').html('<p>' + quote + '</p><p style="text-align:right"> &mdash; <a href="' + url + '">' + author + '</a></p>');
+    $('#quote').html('<p class="lead">' + quote + '</p><p style="text-align:right"> &mdash; <a href="' + url + '">' + author + '</a></p>');
 });
