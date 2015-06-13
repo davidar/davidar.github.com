@@ -1,4 +1,6 @@
 var quotes = [
+    ['Quotation. The act of repeating erroneously the words of another. The words erroneously repeated.',
+     'Ambrose Bierce', 'https://en.wikisource.org/wiki/The_Devil%27s_Dictionary'],
     ['Only wimps use tape backup: _real_ men just upload their important stuff on ftp, and let the rest of the world mirror it ;)',
      'Linus Torvalds', 'http://groups.google.com/group/linux.dev.kernel/msg/76ae734d543e396d'],
     ['Talk is cheap. Show me the code.',
@@ -25,14 +27,14 @@ var quotes = [
      'Douglas Adams', 'http://en.wikiquote.org/wiki/The_Hitchhiker%27s_Guide_to_the_Galaxy#Chapter_16'],
     ['INSUFFICIENT DATA FOR MEANINGFUL ANSWER',
      'Multivac', 'http://multivax.com/last_question.html'],
-    ['Quotation. The act of repeating erroneously the words of another. The words erroneously repeated.',
-     'Ambrose Bierce', 'http://publicliterature.org/books/devils_dictionary/xcn.php'],
-    ['If I have seen further it is by standing on ye shoulders of Giants.',
+    ['If I have seen further it is by standing on the shoulders of Giants.',
      'Isaac Newton', 'http://en.wikiquote.org/wiki/Isaac_Newton'],
     ['The teaching of BASIC should be rated as a criminal offence: it mutilates the mind beyond recovery.',
      'Edsger W. Dijkstra', 'http://cs.utexas.edu/users/EWD/transcriptions/EWD08xx/EWD898.html'],
     ['The question of whether Machines Can Think ... is about as relevant as the question of whether Submarines Can Swim.',
      'Edsger W. Dijkstra', 'http://cs.utexas.edu/users/EWD/transcriptions/EWD08xx/EWD898.html'],
+    ['Elegance is not a dispensable luxury but a quality that decides between success and failure.',
+     'Edsger W. Dijkstra', 'https://www.cs.utexas.edu/users/EWD/transcriptions/EWD12xx/EWD1284.html'],
     ['I\'m sorry, Dave. I\'m afraid I can\'t do that.',
      'HAL 9000', 'http://imdb.com/title/tt0062622/quotes'],
     ['Mathematics is less related to accounting than it is to philosophy.',
@@ -43,12 +45,30 @@ var quotes = [
      'William Harvey', 'http://en.wikisource.org/wiki/Page:The_Works_of_William_Harvey_%28part_2_of_2%29.djvu/98'],
     ['Any sufficiently advanced technology is indistinguishable from magic.',
      'Arthur C. Clarke', 'http://groups.google.com/group/rec.arts.sf.misc/msg/e4185210a85826fc'],
+    ['You cannot do inference without making assumptions.',
+     'David J.C. MacKay', 'http://www.inference.phy.cam.ac.uk/mackay/itila/'],
+    ['Probability theory is nothing but common sense reduced to calculation.',
+     'Pierre-Simon Laplace', 'https://archive.org/details/philosophicaless00lapliala'],
+    ['Nature laughs at the difficulties of integration.',
+     'Pierre-Simon Laplace', 'https://books.google.com/books?id=IsHuAAAAMAAJ'],
+    ['The actual science of Logic is conversant at present only with things either certain, impossible, or entirely doubtful, none of which (fortunately) we have to reason on. Therefore the true Logic for this world is the Calculus of Probabilities.',
+     'James Clerk Maxwell', 'https://books.google.com/books?id=zfM8AAAAIAAJ&pg=PA197'],
+    ['We are all under an ego-driven temptation to project our private thoughts out onto the real world, by supposing that the creations of one\'s own imagination are real properties of Nature, or that one\'s own ignorance signifies some kind of indecision on the part of Nature.',
+     'E. T. Jaynes', 'http://bayes.wustl.edu/etj/articles/cmystery.pdf'],
+    ['The fundamental, inescapable distinction between probability and frequency lies in this relativity principle: probabilities change when we change our state of knowledge, frequencies do not.',
+     'E. T. Jaynes', 'https://books.google.com/books?id=tTN4HuUNXjgC&pg=PA292'],
+    ['Just as there is a trade-off between program size and running time, there is a trade-off between the number of bits of axioms one assumes and the size of proofs.',
+     'Gregory J. Chaitin', 'https://www.cs.auckland.ac.nz/~chaitin/georgia.html'],
 ];
 
-$(document).ready(function() {
+var updateQuote = function() {
     var i = Math.floor(Math.random() * quotes.length);
-    var quote = quotes[i][0];
-    var author = quotes[i][1];
-    var url = quotes[i][2];
-    $('#quote').html('<p class="lead">' + quote + '</p><p style="text-align:right"> &mdash; <a href="' + url + '">' + author + '</a></p>');
+    $('#quote').html(            quotes[i][0]);
+    $('#quote-src').html(        quotes[i][1]);
+    $('#quote-src').attr('href', quotes[i][2]);
+};
+
+$(document).ready(function() {
+    updateQuote();
+    window.setInterval(updateQuote, 15*1000);
 });
