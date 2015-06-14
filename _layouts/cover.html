@@ -11,11 +11,11 @@
 
     <title>{% if page.title %}{{ page.title }} - {% endif %}David A Roberts</title>
 
-    <!-- Latest compiled and minified CSS -->
-    <style>{% include bootstrap.min.css %}</style>
-
-    <!-- Custom styles for this template -->
-    <style>{% include cover.css %}</style>
+    <style>
+    {% include bootstrap.min.css %}
+    html,body{background:url(/img/galahs.min.jpg) no-repeat center center fixed}
+    {% include cover.min.css %}
+    </style>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -45,19 +45,17 @@
             </div>
           </div>
 
-          <div class="inner cover">
+          <div id="content" class="inner cover">
             {{ content }}
           </div>
 
-          <div class="mastfoot">
+          <div class="mastfoot hidden-xs">
             <div class="inner">
               <p>
                 &copy; 2007&ndash;{{ site.time | date: "%Y" }} <a href="mailto:&#x64;&#x40;&#x76;&#x69;&#x64;&#x72;&#x2e;&#x63;&#x63;">David A Roberts</a>.
-                <span class="hidden-xs">
                 Background photo by <a href="https://secure.flickr.com/photos/jim_bendon_1957/15262998101/">Jim Bendon</a> (<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC BY-SA 2.0</a>).
                 <br>
                 Cover template for <a href="http://getbootstrap.com">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.
-                </span>
               </p>
             </div>
           </div>
@@ -72,6 +70,6 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-    <script type="text/javascript">{% include quotes.js %}</script>
+    {% if page.tab == "home" %}<script type="text/javascript">var quotes={% include quotes.json %};{% include quotes.min.js %}</script>{% endif %}
   </body>
 </html>
