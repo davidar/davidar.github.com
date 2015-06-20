@@ -1,6 +1,6 @@
-$(document).ready(function() {
+$(window).load(function() {
     $('#quote').hide();
-    $('#quote').html('<p id="quote-body" class="lead"></p><p style="text-align:right">&mdash; <a id="quote-src" href="#"></a></p>');
+    $('#quote').html('<p id="quote-body" class="lead"></p><p style="text-align:right">&mdash; <a id="quote-src" href="#" rel="nofollow"></a></p>');
     var updateQuote = function() {
         var i = Math.floor(Math.random() * quotes.length);
         $('#quote-body').html(       quotes[i][0]);
@@ -8,7 +8,7 @@ $(document).ready(function() {
         $('#quote-src').attr('href', quotes[i][2]);
         $('#quote').fadeIn('slow');
     };
-    updateQuote();
+    window.setTimeout(updateQuote, 1000);
     window.setInterval(function() {
         $('#quote').fadeOut('slow', updateQuote);
     }, 15000);
