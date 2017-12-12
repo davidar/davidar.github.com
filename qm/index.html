@@ -1,0 +1,228 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Shaders of Schrödinger</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="//texify.davidar.io/main.css" type="text/css">
+</head>
+<body>
+<header>
+    <h1>Shaders of Schrödinger</h1>
+    <address><a href="https://davidar.io/">David A Roberts</a></address>
+</header>
+
+<main>
+<section id="abstract">
+    <h6>Abstract</h6>
+    <p>This is a quick tutorial on implementing a simple quantum mechanics simulator in a GLSL fragment shader. Prior knowledge of physics or GLSL is not required, but some familiarity with differential equations and <abbr>C/C++</abbr> will be helpful. The goal is not to explain any of the physics involved, merely to demystify it by demonstrating how it can be simulated in less than 50 LOC.
+</section>
+
+<figure>
+<iframe src="https://www.shadertoy.com/embed/lsKGRW" width="640" height="360"></iframe>
+</figure>
+
+<h2 class="num">Read Wikipedia</h2>
+
+<blockquote>
+<p>The most famous example is the nonrelativistic Schrödinger equation for a single particle moving in an electric field:
+
+\[ i\hbar\frac{\partial}{\partial t}\Psi(\mathbf{r},t)=\left[\frac{-\hbar^2}{2\mu}\nabla ^2+V(\mathbf{r},t)\right]\Psi(\mathbf{r},t) \]
+ 
+<p>where \(\mu\) is the particle's "reduced mass", \(V\) is its potential energy, \(\nabla^2\) is the Laplacian (a differential operator), and \(\Psi\) is the wave function.
+
+<cite><a href="https://en.wikipedia.org/wiki/Schr%C3%B6dinger_equation#Time-dependent_equation">Time-dependent Schrödinger equation</a>
+</blockquote>
+
+<blockquote>
+<p>The most widely known member of the Runge–Kutta family is generally referred to as "RK4", "classical Runge–Kutta method" or simply as "the Runge–Kutta method".
+
+<p>Let an initial value problem be specified as follows:
+
+\[ \dot y=f(t,y),\quad y(t_{0})=y_{0}. \]
+
+<p>Now pick a step-size \(h > 0\) and define
+
+\[\begin{aligned}
+y_{n+1} &= y_n+\tfrac{h}{6}\left(k_1+2k_2+2k_3+k_4\right), \\
+t_{n+1} &= t_n+h
+\end{aligned}\]
+<p>for \(n = 0, 1, 2, 3, \ldots\), using
+
+\[\begin{aligned}
+k_1 &= f(t_n,y_n), \\
+k_2 &= f\left(t_n+\frac{h}{2},y_n+h\frac{k_1}{2}\right), \\
+k_3 &= f\left(t_n+\frac{h}{2},y_n+h\frac{k_2}{2}\right), \\
+k_4 &= f\left(t_n+h,y_n+hk_3\right).
+\end{aligned}\]
+
+<p><cite><a href="https://en.wikipedia.org/wiki/Runge%E2%80%93Kutta_methods#The_Runge%E2%80%93Kutta_method">The Runge–Kutta method</a>
+</blockquote>
+
+<blockquote>
+<p>Approximations of the Laplacian, obtained by the finite-difference method or by the finite-element method, can also be called discrete Laplacians. For example, the Laplacian in two dimensions can be approximated using the five-point stencil finite-difference method, resulting in
+
+\[ \nabla^2 f(x,y)\approx {\frac {f(x-h,y)+f(x+h,y)+f(x,y-h)+f(x,y+h)-4f(x,y)}{h^{2}}} \]
+
+<p>where the grid size is \(h\) in both dimensions.
+
+<cite><a href="https://en.wikipedia.org/wiki/Discrete_Laplace_operator#Finite_differences">Discrete Laplace operator</a>
+</blockquote>
+
+<h2 class="num">Shut up and calculate</h2>
+
+<p> With a slight rearrangement, some more convenient notation, and selecting units and parameters so as to eliminate the constants, we arrive at a simplified form of the Schrödinger equation:
+
+\[ \dot\Psi_t(\mathbf{r}) = \tfrac{1}{i} \left(-\nabla^2 \Psi_t(\mathbf{r}) + V_t(\mathbf{r}) \Psi_t(\mathbf{r}) \right) \]
+
+<p>We will assume that the simulation starts with a single particle having some (uncertain) position and momentum, travelling in a north-east direction. This can be described as a <a href="https://en.wikipedia.org/wiki/Wave_packet">wave packet</a> of the form
+
+\[ \Psi_0(\mathbf{r}) = \exp\left(-\alpha\|\mathbf{r}\|^2 + i\beta\mathbf{r}\cdot\mathbf{1}\right) \]
+
+<p>The potential \(V(\mathbf{r})\) is defined to be \(1\) wherever there is a boundary and \(0\) elsewhere, independent of the time \(t\).
+
+<p>Now we solve the initial value problem
+
+\[ \dot\Psi_t(\mathbf{r}) = f(t,\Psi_t) \]
+
+<p>with initial condition \(\Psi_0\), where
+
+\[ f(t,y) = \tfrac{1}{i} \left(-\nabla^2 y(\mathbf{r}) + V(\mathbf{r}) y(\mathbf{r}) \right) \]
+
+<p>Using RK4, we can calculate the increments as follows:
+
+\[\begin{aligned}
+k_1(\mathbf{r}) &= \tfrac{1}{i} \left(-\nabla^2 y(\mathbf{r}) + V(\mathbf{r}) y(\mathbf{r}) \right)
+    \quad\text{where } y(\mathbf{r}) = \Psi_t(\mathbf{r}) \\
+k_2(\mathbf{r}) &= \tfrac{1}{i} \left(-\nabla^2 y(\mathbf{r}) + V(\mathbf{r}) y(\mathbf{r}) \right)
+    \quad\text{where } y(\mathbf{r}) = \Psi_t(\mathbf{r}) + \tfrac{h}{2} k_1(\mathbf{r}) \\
+k_3(\mathbf{r}) &= \tfrac{1}{i} \left(-\nabla^2 y(\mathbf{r}) + V(\mathbf{r}) y(\mathbf{r}) \right)
+    \quad\text{where } y(\mathbf{r}) = \Psi_t(\mathbf{r}) + \tfrac{h}{2} k_2(\mathbf{r}) \\
+k_4(\mathbf{r}) &= \tfrac{1}{i} \left(-\nabla^2 y(\mathbf{r}) + V(\mathbf{r}) y(\mathbf{r}) \right)
+    \quad\text{where } y(\mathbf{r}) = \Psi_t(\mathbf{r}) + h k_3(\mathbf{r})
+\end{aligned}\]
+
+<p>approximating the Laplacian as
+
+\[ \nabla^2 y(p,q) \approx y(p,q+1) + y(p-1,q) + y(p,q-1) + y(p-1,q) - 4 y(p,q) \]
+
+<p>yielding the solution
+
+\[ \Psi_{t+h}(\mathbf{r})=\Psi_t(\mathbf{r})+\tfrac{h}{6}\left(k_1(\mathbf{r})+2k_2(\mathbf{r})+2k_3(\mathbf{r})+k_4(\mathbf{r})\right) \]
+
+<h2 class="num">ShaderToy</h2>
+
+<p>The potential \(V(\mathbf{r})\) can be easily implemented as follows, where we have a 5 pixel wide reflecting barrier at the top and bottom, and a 1 pixel wide <a href="https://en.wikipedia.org/wiki/Beam_splitter">beam splitter</a> in the middle of the left half of the screen:
+
+<pre><code class="glsl">
+float potential(vec2 p) {
+    return float(p.y < 5. || p.y > iResolution.y - 5. ||
+        (p.x < iResolution.x/2. && int(p.y) == int(iResolution.y/2.)));
+}
+</code></pre>
+
+<p>Likewise, the initial condition \(\Psi_0\) is implemented like so:
+
+<pre><code class="glsl">
+#define cis(theta) vec2(cos(theta),sin(theta))
+#define length2(p) dot(p,p)
+vec2 psi0(vec2 p) {
+    p = p / iResolution.xy - 0.5;
+    p.x *= iResolution.x / iResolution.y;
+    return exp(-70.*length2(p+vec2(0.675,0.225))) * cis(250.*(p.x+p.y));
+}
+</code></pre>
+
+<p>A convenience function for dividing a complex number \(c\) by \(i\):
+
+<pre><code class="glsl">
+vec2 divi(vec2 c) { /* divide by sqrt(-1), ie. rotate 270 deg */
+    return vec2(c.y, -c.x);
+}
+</code></pre>
+
+<p>Set the timestep \(h=\frac{1}{4}\):
+
+<pre><code class="glsl">
+#define dt 0.25
+</code></pre>
+
+<p>The functions \(\Psi_t(\mathbf{r})\), \(k_1(\mathbf{r})\), \(k_2(\mathbf{r})\), and \(k_3(\mathbf{r})\) are evaluated on a pixel grid and stored in buffers, updated at each timestep. We define several macros for reading these from the ShaderToy buffers:
+
+<pre><code class="glsl">
+#define psi(p) texture(iChannel0,(p)/iResolution.xy).xy
+#define k1(p)  texture(iChannel1,(p)/iResolution.xy).xy
+#define k2(p)  texture(iChannel2,(p)/iResolution.xy).xy
+#define k3(p)  texture(iChannel3,(p)/iResolution.xy).xy
+</code></pre>
+
+<p>Note that it is not necessary to reserve a buffer for \(k_4(\mathbf{r})\), so we simply compute it in the same buffer as \(\Psi_t(\mathbf{r})\).
+
+<p>The computation itself is a simple translation of the equations from the previous section:
+
+<pre><code class="glsl">
+#define y(p) (psi(p))
+
+vec2 k1(vec2 p) {
+    vec2 c = y(p);
+    vec2 n = y(p + vec2(0,1));
+    vec2 e = y(p + vec2(1,0));
+    vec2 s = y(p - vec2(0,1));
+    vec2 w = y(p - vec2(1,0));
+    vec2 laplacian = n + e + s + w - 4.*c;
+    return divi(-laplacian + potential(p) * c);
+}
+</code></pre>
+
+<p>Likewise we have:
+
+<pre><code class="glsl">
+#define y(p) (psi(p) + 0.5*dt*k1(p))
+vec2 k2(vec2 p) { ... }
+</code></pre>
+
+<pre><code class="glsl">
+#define y(p) (psi(p) + 0.5*dt*k2(p))
+vec2 k3(vec2 p) { ... }
+</code></pre>
+
+<pre><code class="glsl">
+#define y(p) (psi(p) + dt*k3(p))
+vec2 k4(vec2 p) { ... }
+</code></pre>
+
+<p>We store the values into the ShaderToy buffer as follows:
+
+<pre><code class="glsl">
+#define mainImage(o,p) o.xy = k1(p)
+</code></pre>
+
+<p>and likewise for <code>k2</code> and <code>k3</code>.
+
+<p>\(\Psi_{t+h}\) can now be calculated:
+
+<pre><code class="glsl">
+#define rk4(p) (psi(p) + dt * (k1(p) + 2.*k2(p) + 2.*k3(p) + k4(p))/6.)
+</code></pre>
+
+<p>and stored into the buffer:
+
+<pre><code class="glsl">
+#define mainImage(o,p) o.xy = (iFrame < 10) ? psi0(p) : rk4(p)
+</code></pre>
+
+<p>Finally, we transform the \(\Psi_t\) values into RGBA to display on the screen:
+
+<pre><code class="glsl">
+#define PI 3.141592653589793
+#define hue2rgb(h) clamp(abs(mod(6.*(h)+vec3(0,4,2),6.)-3.)-1.,0.,1.)
+void mainImage(out vec4 o, in vec2 p) {
+    vec2 v = psi(p);
+    o = vec4(1.5 * length(v) * hue2rgb(atan(v.y,v.x)/(2.*PI)) +
+             0.25 * potential(p), 1);
+}
+</code></pre>
+
+</main>
+<script async src="//texify.davidar.io/load.js"></script>
+</body>
+</html>
