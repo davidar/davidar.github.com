@@ -5,9 +5,7 @@ layout: compress
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="Homepage of David A Roberts">
     <meta name="author" content="David A Roberts">
     <link rel="icon" type="image/png" href="/favicon.png">
@@ -19,12 +17,6 @@ layout: compress
     html,body{background:url(/img/galahs.min.jpg) no-repeat center center fixed}
     {% include cover.min.css %}
     </style>
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
   </head>
 
   <body>
@@ -69,14 +61,6 @@ layout: compress
 
     </div>
 
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"
-      integrity="sha384-+54fLHoW8AHu3nHtUxs9fW2XKOZ2ZwKHB5olRtKSDTKJIb1Na1EceFZMS8E72mzW"
-      crossorigin="anonymous"></script>
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"
-      integrity="sha384-EKxMxgJ+EnnZ5yB3ygGPe1lXaPvlAzKFXU+wW7kO9Bn9ZCgFRrc3wWtCnsDHbemf"
-      crossorigin="anonymous"></script>
     {% if page.tab == "home" %}<script type="text/javascript">var quotes={% include quotes.json %};{% include quotes.min.js %}</script>{% endif %}
   </body>
 </html>
