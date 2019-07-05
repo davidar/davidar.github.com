@@ -1,5 +1,6 @@
 include:
 - .well-known
+- _redirects
 compress_html:
   clippings: all
   comments: ["<!-- ", " -->"]
