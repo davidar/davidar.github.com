@@ -4,3 +4,4 @@ _site/
 Gemfile.lock
 _ignore/
 .*.swp
+vendor/bundle

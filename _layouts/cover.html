@@ -17,6 +17,7 @@ layout: compress
     html,body{background:url(/img/galahs.min.jpg) no-repeat center center fixed}
     {% include cover.min.css %}
     </style>
+    <link rel="stylesheet" href="/fa/css/all.min.css">
   </head>
 
   <body>
@@ -32,10 +33,22 @@ layout: compress
               <h3 class="masthead-brand">David A Roberts</h3>
               <nav>
                 <ul class="nav masthead-nav">
-                  <li {% if page.tab == "home" %} class="active" {% endif %}><a href="/">Home</a></li>
-                  <li><a href="https://github.com/davidar">GitHub</a></li>
-                  <li><a href="https://www.instagram.com/david0ar/">Instagram</a></li>
-                  <li><a href="mailto:&#x64;&#x40;&#x76;&#x69;&#x64;&#x72;&#x2e;&#x63;&#x63;">Contact</a></li>
+                  <li {% if page.tab == "home" %} class="active" {% endif %}><a href="/">
+                    <i class="fas fa-globe-asia"></i>
+                    <span class="hidden-xs">Home</span>
+                  </a></li>
+                  <li><a href="https://github.com/davidar">
+                    <i class="fab fa-github"></i>
+                    GitHub
+                  </a></li>
+                  <li><a href="https://www.instagram.com/david0ar/">
+                    <i class="fab fa-instagram"></i>
+                    Instagram
+                  </a></li>
+                  <li><a href="mailto:&#x64;&#x40;&#x76;&#x69;&#x64;&#x72;&#x2e;&#x63;&#x63;">
+                    <i class="fas fa-envelope"></i>
+                    <span class="hidden-xs">Contact</span>
+                  </a></li>
                 </ul>
               </nav>
             </div>
@@ -49,8 +62,9 @@ layout: compress
             <div class="inner">
               <p>
                 &copy; 2007&ndash;{{ site.time | date: "%Y" }} <a href="mailto:&#x64;&#x40;&#x76;&#x69;&#x64;&#x72;&#x2e;&#x63;&#x63;">David A Roberts</a>.
-                Background photo by <a href="https://secure.flickr.com/photos/jim_bendon_1957/15262998101/">Jim Bendon</a> (<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC BY-SA 2.0</a>).
                 <br>
+                <a href="https://creativecommons.org/licenses/by-sa/2.0/"><i class="fab fa-creative-commons"></i></a>
+                Background photo by <a href="https://secure.flickr.com/photos/jim_bendon_1957/15262998101/">Jim Bendon</a>.
                 Cover template for <a href="http://getbootstrap.com">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.
               </p>
             </div>
