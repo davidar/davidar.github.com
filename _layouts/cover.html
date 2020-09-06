@@ -1,11 +1,12 @@
 ---
 layout: compress
 ---
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
     <meta name="description" content="Homepage of David A Roberts">
     <meta name="author" content="David A Roberts">
     <link rel="icon" type="image/png" href="/favicon.png">
@@ -13,67 +14,54 @@ layout: compress
     <title>{% if page.title %}{{ page.title }} - {% endif %}David A Roberts</title>
 
     <style>
-    {% include bootstrap.min.css %}
-    html,body{background:url(/img/galahs.min.jpg) no-repeat center center fixed}
+    {% include bootstrap/dist/css/bootstrap.min.css %}
     {% include cover.min.css %}
     </style>
     <link rel="stylesheet" href="/fa/css/all.min.css">
   </head>
 
-  <body>
-
-    <div class="site-wrapper">
-
-      <div class="site-wrapper-inner">
-
-        <div class="cover-container">
-
-          <div class="masthead clearfix">
-            <div class="inner">
-              <h3 class="masthead-brand">David A Roberts</h3>
-              <nav>
-                <ul class="nav masthead-nav">
-                  <li {% if page.tab == "home" %} class="active" {% endif %}><a href="/">
-                    <i class="fas fa-globe-asia"></i>
-                    <span class="hidden-xs">Home</span>
-                  </a></li>
-                  <li><a href="https://github.com/davidar">
-                    <i class="fab fa-github"></i>
-                    GitHub
-                  </a></li>
-                  <li><a href="https://www.instagram.com/david0ar/">
-                    <i class="fab fa-instagram"></i>
-                    Instagram
-                  </a></li>
-                  <li><a href="mailto:&#x64;&#x40;&#x76;&#x69;&#x64;&#x72;&#x2e;&#x63;&#x63;">
-                    <i class="fas fa-envelope"></i>
-                    <span class="hidden-xs">Contact</span>
-                  </a></li>
-                </ul>
-              </nav>
-            </div>
-          </div>
-
-          <div id="content" class="inner cover">
-            {{ content }}
-          </div>
-
-          <div class="mastfoot hidden-xs">
-            <div class="inner">
-              <p>
-                &copy; 2007&ndash;{{ site.time | date: "%Y" }} <a href="mailto:&#x64;&#x40;&#x76;&#x69;&#x64;&#x72;&#x2e;&#x63;&#x63;">David A Roberts</a>.
-                <br>
-                <a href="https://creativecommons.org/licenses/by-sa/2.0/"><i class="fab fa-creative-commons"></i></a>
-                Background photo by <a href="https://secure.flickr.com/photos/jim_bendon_1957/15262998101/">Jim Bendon</a>.
-                Cover template for <a href="http://getbootstrap.com">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.
-              </p>
-            </div>
-          </div>
-
+  <body class="text-center" style="background:url(/img/galahs.min.jpg) no-repeat center / cover fixed">
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+      <header class="masthead mb-auto">
+        <div class="inner">
+          <h3 class="masthead-brand">David A Roberts</h3>
+          <nav class="nav nav-masthead justify-content-center">
+            <a class="nav-link{% if page.tab == "home" %} active d-none d-sm-inline{% endif %}" href="/">
+              <i class="fas fa-globe-asia"></i>
+              Home
+            </a>
+            <a class="nav-link" href="https://github.com/davidar">
+              <i class="fab fa-github"></i>
+              GitHub
+            </a>
+            <a class="nav-link" href="https://www.instagram.com/david0ar/">
+              <i class="fab fa-instagram"></i>
+              Instagram
+            </a>
+            <a class="nav-link" href="mailto:&#x64;&#x40;&#x76;&#x69;&#x64;&#x72;&#x2e;&#x63;&#x63;">
+              <i class="fas fa-envelope"></i>
+              Contact
+            </a>
+          </nav>
         </div>
+      </header>
 
-      </div>
+      <main role="main" class="inner cover">
+        {{ content }}
+      </main>
 
+      <footer class="mastfoot mt-auto">
+        <div class="inner">
+          <p>
+          &copy; 2007&ndash;{{ site.time | date: "%Y" }} <a href="mailto:&#x64;&#x40;&#x76;&#x69;&#x64;&#x72;&#x2e;&#x63;&#x63;">David A Roberts</a>.
+          <br>
+          <a href="https://creativecommons.org/licenses/by-sa/2.0/"><i class="fab fa-creative-commons"></i></a>
+          Background photo by <a href="https://secure.flickr.com/photos/jim_bendon_1957/15262998101/">Jim Bendon</a>.
+          <br class="d-sm-none">
+          Cover template for <a href="http://getbootstrap.com">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.
+          </p>
+        </div>
+      </footer>
     </div>
 
     {% if page.tab == "home" %}<script type="text/javascript">var quotes={% include quotes.json %};{% include quotes.min.js %}</script>{% endif %}
