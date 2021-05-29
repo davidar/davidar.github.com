@@ -5,63 +5,125 @@ layout: compress
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
     <meta name="description" content="Homepage of David A Roberts">
     <meta name="author" content="David A Roberts">
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <title>{% if page.title %}{{ page.title }} - {% endif %}David A Roberts</title>
 
-    <style>
+    <!--style>
     {% include bootstrap.min.css %}
-    html,body{background:url(/img/galahs.min.jpg) no-repeat center center fixed}
+    html,body{background:url() no-repeat center center fixed}
     {% include cover.min.css %}
-    </style>
+    </style-->
+    <!-- Font Awesome -->
+    <link
+      href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+      rel="stylesheet"
+      />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+      rel="stylesheet"
+      />
+    <!-- MDB -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/1.0.0/mdb.min.css"
+      rel="stylesheet"
+      />
   </head>
 
   <body>
 
-    <div class="site-wrapper">
+    <!-- Navbar -->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark scrolling-navbar">
+      <div class="container">
 
-      <div class="site-wrapper-inner">
+        <!-- Brand -->
+        <a class="navbar-brand" href="https://mdbootstrap.com/docs/jquery/" target="_blank">
+          <strong>MDB</strong>
+        </a>
 
-        <div class="cover-container">
+        <!-- Collapse -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                                                                            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-          <div class="masthead clearfix">
-            <div class="inner">
-              <h3 class="masthead-brand">David A Roberts</h3>
-              <nav>
-                <ul class="nav masthead-nav">
-                  <li {% if page.tab == "home" %} class="active" {% endif %}><a href="/">Home</a></li>
-                  <li><a href="https://github.com/davidar">GitHub</a></li>
-                  <li><a href="https://www.instagram.com/david0ar/">Instagram</a></li>
-                  <li><a href="mailto:&#x64;&#x40;&#x76;&#x69;&#x64;&#x72;&#x2e;&#x63;&#x63;">Contact</a></li>
-                </ul>
-              </nav>
-            </div>
-          </div>
+        <!-- Links -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-          <div id="content" class="inner cover">
-            {{ content }}
-          </div>
+          <!-- Left -->
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Home
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://mdbootstrap.com/docs/jquery/" target="_blank">About MDB</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://mdbootstrap.com/docs/jquery/getting-started/download/" target="_blank">Free
+                download</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://mdbootstrap.com/education/bootstrap/" target="_blank">Free tutorials</a>
+            </li>
+          </ul>
 
-          <div class="mastfoot hidden-xs">
-            <div class="inner">
-              <p>
-                &copy; 2007&ndash;{{ site.time | date: "%Y" }} <a href="mailto:&#x64;&#x40;&#x76;&#x69;&#x64;&#x72;&#x2e;&#x63;&#x63;">David A Roberts</a>.
-                Background photo by <a href="https://secure.flickr.com/photos/jim_bendon_1957/15262998101/">Jim Bendon</a> (<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC BY-SA 2.0</a>).
-                <br>
-                Cover template for <a href="http://getbootstrap.com">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.
-              </p>
-            </div>
-          </div>
+          <!-- Right -->
+          <ul class="navbar-nav nav-flex-icons">
+            <li class="nav-item">
+              <a href="https://www.facebook.com/mdbootstrap" class="nav-link" target="_blank">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="https://twitter.com/MDBootstrap" class="nav-link" target="_blank">
+                <i class="fab fa-twitter"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="https://github.com/mdbootstrap/bootstrap-material-design" class="nav-link border border-light rounded"
+                                                                                 target="_blank">
+                <i class="fab fa-github mr-2"></i>MDB GitHub
+              </a>
+            </li>
+          </ul>
 
         </div>
 
       </div>
+    </nav>
+    <!-- Navbar -->
+
+    <!-- Full Page Intro -->
+    <div class="view" style="background-image: url('/img/galahs.min.jpg'); background-repeat: no-repeat; background-size: cover; height: 100vh;">
+
+      <!-- Mask & flexbox options-->
+      <div class="mask rgba-black-light d-flex justify-content-center align-items-center">
+
+        <!-- Content -->
+        <div class="text-center text-light mx-5 wow fadeIn">
+          {{ content }}
+        </div>
+        <!-- Content -->
+
+      </div>
+      <!-- Mask & flexbox options-->
 
     </div>
+    <!-- Full Page Intro -->
 
     {% if page.tab == "home" %}<script type="text/javascript">var quotes={% include quotes.json %};{% include quotes.min.js %}</script>{% endif %}
+    <!-- MDB -->
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/1.0.0/mdb.min.js"
+      ></script>
   </body>
 </html>
