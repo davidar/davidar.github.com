@@ -30,52 +30,57 @@ layout: compress
       </style>
 
       <!-- Navbar -->
-      <nav class="navbar navbar-expand-lg navbar-dark d-none d-lg-block fixed-top" style="z-index: 2000; background-color: rgba(0, 0, 0, 0.2);">
+      <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: rgba(0, 0, 0, 0.2);">
+        <!-- Container wrapper -->
         <div class="container-fluid">
-          <!-- Navbar brand -->
-          <a class="navbar-brand nav-link" href="/">
-            David A Roberts
-          </a>
-          <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarExample01"
-            aria-controls="navbarExample01" aria-expanded="false" aria-label="Toggle navigation">
+          <!-- Toggle button -->
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-mdb-toggle="collapse"
+            data-mdb-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
             <i class="fas fa-bars"></i>
           </button>
-          <div class="collapse navbar-collapse" id="navbarExample01">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item active">
-                <a class="nav-link" aria-current="page" href="#main">Home</a>
-              </li>
-            </ul>
 
-            <ul class="navbar-nav d-flex flex-row">
-              <!-- Icons -->
-              <li class="nav-item me-3 me-lg-0">
-                <a class="nav-link" href="/">
-                  <i class="fas fa-globe-asia"></i>
-                  Home
-                </a>
-              </li>
-              <li class="nav-item me-3 me-lg-0">
-                <a class="nav-link" href="https://github.com/davidar">
-                  <i class="fab fa-github"></i>
-                  GitHub
-                </a>
-              </li>
-              <li class="nav-item me-3 me-lg-0">
-                <a class="nav-link" href="https://www.instagram.com/david0ar/">
-                  <i class="fab fa-instagram"></i>
-                  Instagram
-                </a>
-              </li>
-              <li class="nav-item me-3 me-lg-0">
-                <a class="nav-link" href="mailto:&#x64;&#x40;&#x76;&#x69;&#x64;&#x72;&#x2e;&#x63;&#x63;">
-                  <i class="fas fa-envelope"></i>
-                  Contact
-                </a>
+          <!-- Collapsible wrapper -->
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <!-- Navbar brand -->
+            <a class="navbar-brand mt-2 mt-lg-0" href="#">
+              David A Roberts
+            </a>
+            <!-- Left links -->
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link" href="#main">Projects</a>
               </li>
             </ul>
+            <!-- Left links -->
           </div>
+          <!-- Collapsible wrapper -->
+
+          <!-- Right elements -->
+          <div class="d-flex align-items-center">
+            <!-- Icon -->
+            <a class="text-reset me-3" href="https://github.com/davidar">
+              <i class="fab fa-github"></i>
+              GitHub
+            </a>
+            <a class="text-reset me-3" href="https://www.instagram.com/david0ar/">
+              <i class="fab fa-instagram"></i>
+              Instagram
+            </a>
+            <a class="text-reset me-3" href="mailto:&#x64;&#x40;&#x76;&#x69;&#x64;&#x72;&#x2e;&#x63;&#x63;">
+              <i class="fas fa-envelope"></i>
+              Contact
+            </a>
+          </div>
+          <!-- Right elements -->
         </div>
+        <!-- Container wrapper -->
       </nav>
       <!-- Navbar -->
 
