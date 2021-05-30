@@ -1,8 +1,153 @@
 ---
-layout: cover
-tab: home
+layout: compress
 ---
-<div id="quote" style="opacity:0; transition:opacity 0.8s linear">
-  <p id="quote-body" class="lead" style="text-shadow:0 1px 3px rgba(0,0,0,1)"></p>
-  <p style="text-align:right">&mdash; <a id="quote-src" href="#" rel="nofollow"></a></p>
-</div>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+
+    <meta name="description" content="Homepage of David A Roberts">
+    <meta name="author" content="David A Roberts">
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <title>{% if page.title %}{{ page.title }} - {% endif %}David A Roberts</title>
+    <link rel="stylesheet" href="/fa/css/all.min.css">
+    <!-- Google Fonts Roboto -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
+    <!-- MDB -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.5.0/mdb.dark.min.css" />
+  </head>
+  <body>
+    <!--Main Navigation-->
+    <header>
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: rgba(0, 0, 0, 0.2)">
+        <!-- Container wrapper -->
+        <div class="container-fluid">
+          <!-- Toggle button -->
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-mdb-toggle="collapse"
+            data-mdb-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <i class="fas fa-bars"></i>
+          </button>
+
+          <!-- Collapsible wrapper -->
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <!-- Navbar brand -->
+            <a class="navbar-brand mt-2 mt-lg-0" href="#">
+              David A Roberts
+            </a>
+            <!-- Left links -->
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link" href="#main">Projects</a>
+              </li>
+            </ul>
+            <!-- Left links -->
+          </div>
+          <!-- Collapsible wrapper -->
+
+          <!-- Right elements -->
+          <div class="d-flex align-items-center">
+            <!-- Icon -->
+            <a class="text-reset me-3" href="https://github.com/davidar">
+              <i class="fab fa-github"></i>
+              GitHub
+            </a>
+            <a class="text-reset me-3" href="https://www.instagram.com/david0ar/">
+              <i class="fab fa-instagram"></i>
+              Instagram
+            </a>
+            <a class="text-reset me-3" href="mailto:&#x64;&#x40;&#x76;&#x69;&#x64;&#x72;&#x2e;&#x63;&#x63;">
+              <i class="fas fa-envelope"></i>
+              Contact
+            </a>
+          </div>
+          <!-- Right elements -->
+        </div>
+        <!-- Container wrapper -->
+      </nav>
+      <!-- Navbar -->
+
+      <!-- Background image -->
+      <div class="bg-image shadow-2-strong" style="background-image: url(/img/galahs.min.jpg); height: 100vh">
+        <div class="mask" style="background-color: rgba(0, 0, 0, 0.2)">
+          <div class="container d-flex flex-column justify-content-between text-center h-100">
+            <div></div>
+            <div class="text-white">
+              <div id="quote" style="opacity:0; transition:opacity 0.8s linear">
+                <p id="quote-body" class="lead" style="text-shadow:0 1px 3px rgba(0,0,0,1)"></p>
+                <p style="text-align:right">&mdash; <a id="quote-src" class="text-white" href="#" rel="nofollow"></a></p>
+              </div>
+            </div>
+            <div class="mb-5">
+              <a class="btn btn-outline-light btn-lg m-2" href="#main" role="button">Projects</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Background image -->
+    </header>
+    <!--Main Navigation-->
+
+    <!--Main layout-->
+    <main class="pt-5" id="main">
+      <div class="container">
+        <!--Section: Content-->
+        <section class="text-center">
+          <h4 class="my-4">Projects</h4>
+
+          <div class="row pt-2">
+            {% for project in site.data.projects %}
+            <div class="col-lg-4 col-md-6 mb-4">
+              <div class="card">
+                <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                  <img src="{{ project.image }}" class="img-fluid" />
+                  <a href="{{ project.url }}">
+                    <div class="mask" style="background-color: rgba(251, 251, 251, 0.15)"></div>
+                  </a>
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">{{ project.name }}</h5>
+                  <p class="card-text">
+                    {{ project.text }}
+                  </p>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </section>
+        <!--Section: Content-->
+      </div>
+    </main>
+    <!--Main layout-->
+
+    <!--Footer-->
+    <footer class="bg-dark text-lg-start">
+      <!-- Copyright -->
+      <div class="text-center p-3">
+        <p>
+        &copy; 2007&ndash;{{ site.time | date: "%Y" }} <a href="mailto:&#x64;&#x40;&#x76;&#x69;&#x64;&#x72;&#x2e;&#x63;&#x63;">David A Roberts</a>.
+        <br>
+        <a href="https://creativecommons.org/licenses/by-sa/2.0/"><i class="fab fa-creative-commons"></i></a>
+        Background photo by <a href="https://secure.flickr.com/photos/jim_bendon_1957/15262998101/">Jim Bendon</a>.
+        <br class="d-sm-none">
+        Forked from <a href="https://github.com/mdbootstrap/bootstrap-5-full-image-cover-template">template by MDB</a>.
+        </p>
+      </div>
+      <!-- Copyright -->
+    </footer>
+    <!--Footer-->
+    <script type="text/javascript">var quotes={% include quotes.json %};{% include quotes.min.js %}</script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.5.0/mdb.min.js"></script>
+  </body>
+</html>
