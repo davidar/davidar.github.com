@@ -20,17 +20,10 @@ layout: compress
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.5.0/mdb.dark.min.css" />
   </head>
   <body>
-        <!--Main Navigation-->
+    <!--Main Navigation-->
     <header>
-      <style>
-        #intro {
-          background-image: url(/img/galahs.min.jpg);
-          height: 100vh;
-        }
-      </style>
-
       <!-- Navbar -->
-      <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: rgba(0, 0, 0, 0.2);">
+      <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: rgba(0, 0, 0, 0.2)">
         <!-- Container wrapper -->
         <div class="container-fluid">
           <!-- Toggle button -->
@@ -85,14 +78,18 @@ layout: compress
       <!-- Navbar -->
 
       <!-- Background image -->
-      <div id="intro" class="bg-image shadow-2-strong">
-        <div class="mask" style="background-color: rgba(0, 0, 0, 0.2); ">
-          <div class="container d-flex align-items-center justify-content-center text-center h-100">
+      <div class="bg-image shadow-2-strong" style="background-image: url(/img/galahs.min.jpg); height: 100vh">
+        <div class="mask" style="background-color: rgba(0, 0, 0, 0.2)">
+          <div class="container d-flex flex-column justify-content-between text-center h-100">
+            <div></div>
             <div class="text-white">
               <div id="quote" style="opacity:0; transition:opacity 0.8s linear">
                 <p id="quote-body" class="lead" style="text-shadow:0 1px 3px rgba(0,0,0,1)"></p>
                 <p style="text-align:right">&mdash; <a id="quote-src" class="text-white" href="#" rel="nofollow"></a></p>
               </div>
+            </div>
+            <div class="mb-5">
+              <a class="btn btn-outline-light btn-lg m-2" href="#main" role="button">Projects</a>
             </div>
           </div>
         </div>
@@ -106,16 +103,16 @@ layout: compress
       <div class="container">
         <!--Section: Content-->
         <section class="text-center">
-          <h4 class="my-5">Projects</h4>
+          <h4 class="my-4">Projects</h4>
 
-          <div class="row">
+          <div class="row pt-2">
             {% for project in site.data.projects %}
             <div class="col-lg-4 col-md-6 mb-4">
               <div class="card">
                 <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
                   <img src="{{ project.image }}" class="img-fluid" />
                   <a href="{{ project.url }}">
-                    <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                    <div class="mask" style="background-color: rgba(251, 251, 251, 0.15)"></div>
                   </a>
                 </div>
                 <div class="card-body">
