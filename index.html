@@ -14,19 +14,13 @@ layout: compress
 
     <title>{% if page.title %}{{ page.title }} - {% endif %}David A Roberts</title>
     <link rel="stylesheet" href="/fa/css/all.min.css">
-    <!-- Google Fonts Roboto -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
-    <!-- MDB -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.5.0/mdb.dark.min.css" />
   </head>
   <body>
-    <!--Main Navigation-->
     <header>
-      <!-- Navbar -->
       <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: rgba(0, 0, 0, 0.2)">
-        <!-- Container wrapper -->
         <div class="container-fluid">
-          <!-- Toggle button -->
           <button
             class="navbar-toggler"
             type="button"
@@ -41,7 +35,6 @@ layout: compress
 
           <!-- Collapsible wrapper -->
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <!-- Navbar brand -->
             <a class="navbar-brand mt-2 mt-lg-0" href="#">
               David A Roberts
             </a>
@@ -51,13 +44,10 @@ layout: compress
                 <a class="nav-link" href="#main">Projects</a>
               </li>
             </ul>
-            <!-- Left links -->
           </div>
-          <!-- Collapsible wrapper -->
 
           <!-- Right elements -->
           <div class="d-flex align-items-center">
-            <!-- Icon -->
             <a class="text-reset me-3" href="https://github.com/davidar">
               <i class="fab fa-github"></i>
               GitHub
@@ -71,13 +61,9 @@ layout: compress
               Contact
             </a>
           </div>
-          <!-- Right elements -->
         </div>
-        <!-- Container wrapper -->
       </nav>
-      <!-- Navbar -->
 
-      <!-- Background image -->
       <div class="bg-image shadow-2-strong" style="background-image: url(/img/galahs.min.jpg); height: 100vh">
         <div class="mask" style="background-color: rgba(0, 0, 0, 0.2)">
           <div class="container d-flex flex-column justify-content-between text-center h-100">
@@ -94,14 +80,10 @@ layout: compress
           </div>
         </div>
       </div>
-      <!-- Background image -->
     </header>
-    <!--Main Navigation-->
 
-    <!--Main layout-->
     <main class="pt-5" id="main">
       <div class="container">
-        <!--Section: Content-->
         <section class="text-center">
           <h4 class="my-4">Projects</h4>
 
@@ -137,27 +119,20 @@ layout: compress
             {% endfor %}
           </div>
         </section>
-        <!--Section: Content-->
       </div>
     </main>
-    <!--Main layout-->
 
-    <!--Footer-->
     <footer class="bg-dark text-lg-start">
-      <!-- Copyright -->
       <div class="text-center p-3">
         <p>
         &copy; 2007&ndash;{{ site.time | date: "%Y" }} <a href="mailto:&#x64;&#x40;&#x76;&#x69;&#x64;&#x72;&#x2e;&#x63;&#x63;">David A Roberts</a>.
         <br>
         <a href="https://creativecommons.org/licenses/by-sa/2.0/"><i class="fab fa-creative-commons"></i></a>
         Background photo by <a href="https://secure.flickr.com/photos/jim_bendon_1957/15262998101/">Jim Bendon</a>.
-        <br class="d-sm-none">
-        Forked from <a href="https://github.com/mdbootstrap/bootstrap-5-full-image-cover-template">template by MDB</a>.
         </p>
       </div>
-      <!-- Copyright -->
     </footer>
-    <!--Footer-->
+
     <script type="text/javascript">var quotes={% include quotes.json %};{% include quotes.min.js %}</script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.5.0/mdb.min.js"></script>
     <script async defer src="https://buttons.github.io/buttons.js"></script>
