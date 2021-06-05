@@ -116,7 +116,9 @@ layout: compress
                   </a>
                 </div>
                 <div class="card-body">
-                  <h5 class="card-title">{{ project.name }}</h5>
+                  <h5 class="card-title">
+                    <a href="{{ project.url }}" class="text-reset">{{ project.name }}</a>
+                  </h5>
                   <p class="card-text">
                     {% for badge in project.badges %}
                       <span class="badge bg-primary">{{ badge }}</span>
