@@ -1,4 +1,5 @@
 - name: PanDiff
+  github: davidar/pandiff
   url: https://github.com/davidar/pandiff
   text: Generates prose diffs for multiple document formats.
   image: https://raw.githubusercontent.com/davidar/pandiff/master/test/diff.html.png
@@ -8,6 +9,7 @@
   - TypeScript
 
 - name: Tensor
+  github: davidar/tensor
   url: https://github.com/davidar/tensor
   text: Cross-platform chatroom client (Windows, Mac, Linux, Android, iOS).
   image: https://raw.githubusercontent.com/davidar/tensor/master/screen/osx.png
@@ -33,6 +35,7 @@
   - ANTLR
 
 - name: LLJVM
+  github: davidar/lljvm
   url: https://github.com/davidar/lljvm
   text: Compiles C source code to Java Virtual Machine (JVM) bytecode.
   image: https://raw.githubusercontent.com/vscode-icons/vscode-icons/master/icons/file_type_jar.svg
@@ -48,10 +51,3 @@
   badges:
   - Python 2
   - PyQt4
-
-- name: fragx
-  url: https://github.com/davidar/fragx
-  text: GLSL Fragment Shader Executable Compiler.
-  image: https://raw.githubusercontent.com/davidar/fragx/master/screen/fluid.png
-  badges:
-  - GLSL

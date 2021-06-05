@@ -110,7 +110,7 @@ layout: compress
             <div class="col-lg-4 col-md-6 mb-4">
               <div class="card">
                 <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-                  <img src="{{ project.image }}" style="max-height:13.25rem" class="img-fluid" loading="lazy" />
+                  <img src="{{ project.image }}" style="max-height:15rem" class="img-fluid" loading="lazy" />
                   <a href="{{ project.url }}">
                     <div class="mask" style="background-color: rgba(251, 251, 251, 0.15)"></div>
                   </a>
@@ -118,10 +118,16 @@ layout: compress
                 <div class="card-body">
                   <h5 class="card-title">{{ project.name }}</h5>
                   <p class="card-text">
-                    {{ project.text }}
                     {% for badge in project.badges %}
                       <span class="badge bg-primary">{{ badge }}</span>
                     {% endfor %}
+                    {% if project.github %}
+                    <span class="align-top">
+                      <a class="github-button" href="https://github.com/{{ project.github }}" data-color-scheme="no-preference: dark; light: dark; dark: dark;" data-size="large" data-show-count="true" aria-label="Star {{ project.github }} on GitHub">Star</a>
+                    </span>
+                    {% endif %}
+                    <br/>
+                    {{ project.text }}
                   </p>
                 </div>
               </div>
@@ -152,5 +158,6 @@ layout: compress
     <!--Footer-->
     <script type="text/javascript">var quotes={% include quotes.json %};{% include quotes.min.js %}</script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.5.0/mdb.min.js"></script>
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
   </body>
 </html>
