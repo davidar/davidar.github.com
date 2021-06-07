@@ -182,7 +182,7 @@ vec2 k4(vec2 p) { ... }
 <p>We store the values into the ShaderToy buffer as follows:
 
 <pre><code class="glsl">
-#define mainImage(o,p) o.xy = k1(p)
+void mainImage(out vec4 o, in vec2 p) { o.xy = k1(p); }
 </code></pre>
 
 <p>and likewise for <code>k2</code> and <code>k3</code>.
@@ -196,7 +196,9 @@ vec2 k4(vec2 p) { ... }
 <p>and stored into the buffer:
 
 <pre><code class="glsl">
-#define mainImage(o,p) o.xy = (iFrame < 10) ? psi0(p) : rk4(p)
+void mainImage(out vec4 o, in vec2 p) {
+    o.xy = (iFrame < 10) ? psi0(p) : rk4(p);
+}
 </code></pre>
 
 <p>Finally, we transform the \(\Psi_t\) values into RGBA to display on the screen:
