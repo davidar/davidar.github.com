@@ -63,6 +63,9 @@ image: /img/galahs.min.jpg
               <li class="nav-item">
                 <a class="nav-link" href="#main">Projects</a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#posts">Posts</a>
+              </li>
             </ul>
           </div>
 
@@ -133,6 +136,31 @@ image: /img/galahs.min.jpg
                     <br/>
                     {{ project.text }}
                   </p>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </section>
+
+        <hr class="my-5" id="posts" />
+        <section class="pt-4">
+          <h4 class="mb-4 text-center">Posts</h4>
+          <div class="row pt-2">
+            {% for post in site.posts %}
+            <div class="col-lg-4 col-md-6 mb-4">
+              <div class="card">
+                <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                  <img src="{{ post.image }}" style="max-height:15rem" class="img-fluid" loading="lazy" />
+                  <a href="{{ post.url }}">
+                    <div class="mask" style="background-color: rgba(251, 251, 251, 0.15)"></div>
+                  </a>
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">
+                    <a href="{{ post.url }}" class="text-reset">{{ post.title }}</a>
+                  </h5>
+                  <p class="card-text">{{ post.abstract }}</p>
                 </div>
               </div>
             </div>

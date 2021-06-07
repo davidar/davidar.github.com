@@ -1,21 +1,10 @@
-<!DOCTYPE html><html lang="en">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Shaders of Schrödinger</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="//texify.davidar.io/main.css" type="text/css">
-</head>
-<body>
-<header>
-    <h1>Shaders of Schrödinger</h1>
-    <address><a href="https://davidar.io/">David A Roberts</a></address>
-</header>
-
-<main>
-<section id="abstract">
-    <h6>Abstract</h6>
-    <p>This is a quick tutorial on implementing a simple quantum mechanics simulator in a GLSL fragment shader. Prior knowledge of physics or GLSL is not required, but some familiarity with differential equations and <abbr>C/C++</abbr> will be helpful. The goal is not to explain any of the physics involved, merely to demystify it by demonstrating how it can be simulated in less than 50 LOC.
-</section>
+---
+title: Shaders of Schrödinger
+subtitle: Simulating quantum mechanics in a fragment shader
+image: https://www.shadertoy.com/media/shaders/lsKGRW.jpg
+abstract: This is a quick tutorial on implementing a simple quantum mechanics simulator in a GLSL fragment shader. Prior knowledge of physics or GLSL is not required, but some familiarity with differential equations and <abbr>C/C++</abbr> will be helpful. The goal is not to explain any of the physics involved, merely to demystify it by demonstrating how it can be simulated in less than 50 LOC.
+layout: texify
+---
 
 <figure>
 <iframe src="https://www.shadertoy.com/embed/lsKGRW" width="640" height="360"></iframe>
@@ -221,8 +210,3 @@ void mainImage(out vec4 o, in vec2 p) {
              0.25 * potential(p), 1);
 }
 </code></pre>
-
-</main>
-<script async src="//texify.davidar.io/load.js"></script>
-</body>
-</html>
