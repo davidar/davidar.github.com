@@ -1,3 +1,24 @@
+- name: Stochaskell
+  url: https://davidar.github.io/stochaskell/
+  text: A probabilistic programming language embedded in Haskell.
+  image: https://davidar.github.io/stochaskell/images/gp-stan.svg
+  badges:
+  - Haskell
+  - Python
+  - C++
+  - Stan
+  - TensorFlow
+  - Jupyter
+  - Docker
+
+- name: Fragment Shaders
+  url: https://www.shadertoy.com/user/davidar
+  text: GPU simulations and visualisations submitted to Shadertoy.
+  image: https://www.shadertoy.com/media/shaders/XsVBRm.jpg
+  badges:
+  - GLSL
+  - WebGL
+
 - name: PanDiff
   github: davidar/pandiff
   url: https://github.com/davidar/pandiff
@@ -7,6 +28,15 @@
   - JavaScript ES6
   - Node.js
   - TypeScript
+
+- name: TeXify
+  github: davidar/TeX.js
+  url: https://texify.davidar.io/
+  text: Stylesheet for publishing scientific articles on the web.
+  image: /img/texify-header.png
+  badges:
+  - CSS
+  - JavaScript
 
 - name: Tensor
   github: davidar/tensor
