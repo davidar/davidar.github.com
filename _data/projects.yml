@@ -2,6 +2,7 @@
   url: https://davidar.github.io/stochaskell/
   text: A probabilistic programming language embedded in Haskell.
   image: https://davidar.github.io/stochaskell/images/gp-stan.svg
+  bg: white
   badges:
   - Haskell
   - Python
@@ -15,6 +16,8 @@
   url: https://www.shadertoy.com/user/davidar
   text: GPU simulations and visualisations submitted to Shadertoy.
   image: https://www.shadertoy.com/media/shaders/XsVBRm.jpg
+  bg: black
+  nomargin: true
   badges:
   - GLSL
   - WebGL
@@ -24,6 +27,7 @@
   url: https://github.com/davidar/pandiff
   text: Generates prose diffs for multiple document formats.
   image: https://raw.githubusercontent.com/davidar/pandiff/master/test/diff.html.png
+  bg: white
   badges:
   - JavaScript ES6
   - Node.js
@@ -34,6 +38,7 @@
   url: https://texify.davidar.io/
   text: Stylesheet for publishing scientific articles on the web.
   image: /img/texify-header.png
+  bg: '#202020'
   badges:
   - CSS
   - JavaScript
@@ -51,6 +56,7 @@
   url: https://github.com/davidar/polya
   text: Library for performing statistical inference with Pólya urn models.
   image: https://raw.githubusercontent.com/davidar/polya/master/pyphmm.png
+  bg: white
   badges:
   - Python 2
   - Cython
@@ -60,6 +66,7 @@
   url: https://github.com/davidar/datum
   text: Question Answering system, implementing a subset of Prolog (Datalog).
   image: https://raw.githubusercontent.com/davidar/datum/master/screen.png
+  bg: '#E6E6E6'
   badges:
   - Java 6
   - ANTLR
@@ -74,10 +81,34 @@
   - C++
   - LLVM
 
+- name: SUBLEQ CPU
+  github: davidar/subleq
+  url: https://github.com/davidar/subleq
+  text: CPU design and toolchain for a simple computer architecture.
+  image: https://raw.githubusercontent.com/davidar/subleq/master/logisim/cpu.png
+  bg: white
+  badges:
+  - Logisim
+  - C
+  - JavaScript
+
 - name: PyZUI
+  github: davidar/pyzui
   url: https://github.com/davidar/pyzui
   text: Zooming User Interface, optimised for viewing very large images.
   image: https://raw.githubusercontent.com/davidar/pyzui/master/doc/images/home_scene.png
+  bg: black
   badges:
   - Python 2
   - PyQt4
+
+- name: PixelStruct
+  github: davidar/pixelstruct
+  url: https://github.com/davidar/pixelstruct
+  text: A tool for visualising 3D scenes reconstructed from photographs.
+  image: https://img.youtube.com/vi/VFdNQc3gVkM/hqdefault.jpg
+  bg: black
+  badges:
+  - C++
+  - Qt4
+  - OpenGL
