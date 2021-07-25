@@ -191,3 +191,28 @@ vec2 velocity = coriolis - grad;
 <figure>
 <iframe src="https://www.shadertoy.com/embed/XlsBDf" width="640" height="360"></iframe>
 </figure>
+
+<h2 class="num">Life</h2>
+
+<p>The climate influences the distribution of life on a planet. Rainfall patterns and temperature variation dictate rates of plant growth. As the seasons change, herbivores migrate to regions with enough vegetation to sustain them. And, as they follow the vegetation, predators follow them. All of these dynamics can be captured by a <a href="https://en.wikipedia.org/wiki/Lotka-Volterra_equations">Lotka--Volterra</a> diffusion model:
+
+<pre><code class="glsl">
+float dx = plant_growth - c.y;
+float dy = reproduction * c.x - predation * c.z - 1.;
+float dz = predation * c.y - 1.;
+float dt = 0.1;
+c.xyz += dt * c.xyz * vec3(dx, dy, dz);
+</code></pre>
+
+<p>The <code>xyz</code> elements of <code>c</code> represent the populations of vegetation, herbivores, and predators respectively. On a large scale, the dynamics of animal populations generate interesting patterns:
+
+<figure>
+<iframe src="https://www.shadertoy.com/embed/Xtcyzr" width="640" height="360"></iframe>
+</figure>
+
+<p>In real life, these kinds of patterns are most easily seen with microbe populations in a petri dish, but the same laws govern large animal populations across the globe.
+
+<figure>
+<img src="http://www.evsc.net/v8/wp/wp-content/uploads/2010/10/dictyo1.jpg">
+<figcaption><a href="http://www.evsc.net/projects/reaction-diffusion-2">Spiral waves in colonies of mold</a>.</figcaption>
+</figure>
