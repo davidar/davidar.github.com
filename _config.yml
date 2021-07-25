@@ -6,3 +6,4 @@ compress_html:
   comments: ["<!-- ", " -->"]
   endings: all
 permalink: /post/:title
+domain: davidar.io
