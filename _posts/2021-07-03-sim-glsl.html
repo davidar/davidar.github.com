@@ -1,8 +1,8 @@
 ---
 title: Simulating worlds on the GPU
-subtitle: "Part I: Protoplanet"
+subtitle: Four billion years in four minutes
 image: https://i.vimeocdn.com/video/717923611
-abstract: This is the first in a series of posts explaining my <a href="https://www.shadertoy.com/view/XttcWn">procedural earth simulation</a>, written entirely in GLSL fragment shaders.
+abstract: This is the first in a series of posts explaining my <a href="https://www.shadertoy.com/view/XttcWn">procedural earth simulation</a>, written entirely in GLSL fragment shaders. It simulates the complete history of an earth-like planet in a few minutes, with the simulation updating at 60 frames per second.
 layout: texify
 ---
 
@@ -11,7 +11,7 @@ layout: texify
 <figcaption>A video recording of the <a href="https://www.shadertoy.com/view/XttcWn">final shader</a>.</figcaption>
 </figure>
 
-<h2>Protoplanet</h2>
+<h2 class="num">Protoplanet</h2>
 
 <blockquote>
 <p>This story begins four and a half billion years ago, with a lump of molten rock...
@@ -71,17 +71,63 @@ float craters(vec3 x) {
 <img src="/img/protoplanet.jpg">
 </figure>
 
-<p>Although relatively simple, this procedural terrain resembles what scientists believe the early earth actually looked like:
+<p>Although relatively simple, after filling the low-lying regions with water, this procedural terrain resembles what scientists believe the early earth actually looked like:
 
 <figure>
 <img src="https://sservi.nasa.gov/wp-content/uploads/2014/07/7-30-14_hadeanearth.jpg">
 <figcaption>Artistic impression of the early earth, by <a href="https://sservi.nasa.gov/articles/new-nasa-research-shows-giant-asteroids-battered-early-earth/">NASA</a>.</figcaption>
 </figure>
 
-<h2>Ancient Ocean</h2>
-
 <blockquote>
 <p>Water contained within was vaporised by the heat, which escaped and began circulating through the early atmosphere forming around the planet. As time progressed and the rock cooled, the water vapour began to condense into oceans. The flow of liquid water across the surface carved valleys in the terrain, leaving an accumulation of sediment in its wake.
 </blockquote>
 
-<p>Stay tuned for the next post in the series, which introduces a global atmosphere and water flow simulation.
+<h2 class="num">Tectonic plates</h2>
+
+<p>The formation of mountains, ocean trenches, and familiar continental landforms requires a model of tectonic movement. The simulation randomly generates seed locations for plates, with an initial velocity. These plates grow in size over time with a simple aggregation model, which randomly selects neighbouring points and adds them to a plate if they have not already been assigned to another plate. All of the pixels within a plate store the velocity of the plate's movement. The aggregation model is similar to that of a diffusion-limited aggregation (but without the diffusion):
+
+<figure>
+<iframe src="https://www.shadertoy.com/embed/ldK3RW" width="640" height="360"></iframe>
+</figure>
+
+<p>Continuous movement of the plates is difficult, as it would require plate boundaries to account for movements measured in fractions of a pixel. To avoid this, the plates are instead moved at discrete time-steps, by a whole pixel either horizontally or vertically. These times are randomised for each plate such that the average velocity is maintained at the set speed and direction, and also so that it is unlikely that neighbouring plates will move simultaneously.
+
+<p>Plate collisions occur when some boundary pixels of one plate move onto a location previously occupied by pixels belonging to another plate. This causes <a href="https://en.wikipedia.org/wiki/Subduction">subduction</a>, which is modelled by simply slightly increasing the elevation of the terrain at the locations of the collision. Although this only occurs at the pixels along the boundary of a plate, the impact is gradually spread to neighbouring pixels through a simple thermal erosion model, which pushes the elevation of a pixel in the direction of the average of its neighbours.
+
+<p>Altogether this provides a decent simulation of the formation of continents with mountain ranges (which will be further improved with the introduction of hydraulic erosion in the next section):
+
+<figure>
+<iframe src="https://www.shadertoy.com/embed/XtffW8" width="640" height="360"></iframe>
+</figure>
+
+<h2 class="num">Hydraulic erosion</h2>
+
+<p>The rugged appearance of natural terrain is largely driven by the formation of river basins, which erode landscapes in a familiar branching pattern. A variety of water flow simulations are readily available for this task, but a difficulty here is that the resolution of the terrain map is quite low for an entire planet. Therefore, the model will have to be able to simulate rivers which are no more than a single pixel wide. <a href="https://arxiv.org/abs/1803.02977">Barnes (2018)</a> proposes a simple model which achieves just this.
+
+<p>Simply put, each pixel examines its eight neighbours, to determine which direction has the greatest decrease in elevation (adjusted for the fact that the diagonal neighbours are further away). This direction of greatest slope is where water flowing out of this pixel will travel. Water is initially distributed amongst cells by rainfall, which is then transported between neighbouring pixels at each time-step.
+
+<p>Erosion is driven by a <a href="https://en.wikipedia.org/wiki/Stream_power_law">stream power law</a>:
+
+<pre><code class="glsl">
+elevation -= 0.05 * pow(water, 0.8) * pow(slope, 2.);
+</code></pre>
+
+<p>Here we have the <code>elevation</code> and amount of <code>water</code> located at the current cell, along with the <code>slope</code> in the direction the water is travelling. The decrease in elevation is capped so that it doesn't become lower than the location the water is flowing to.
+
+<p>The interaction between the water flow and erosion results in the natural formation of river basins in the terrain:
+
+<figure>
+<iframe src="https://www.shadertoy.com/embed/XsVBRm" width="640" height="360"></iframe>
+</figure>
+
+<p>By colouring connected waterways (with the colour determined by the location of the river's mouth), it's possible to produce striking visualisations reminiscent of <a href="https://imgur.com/gallery/WaEbi">real river basin maps</a>:
+
+<figure>
+<img src="/img/basin.png">
+<figcaption>Simulated river basins. <a href="https://www.shadertoy.com/view/XsVBDz">Original shader</a>.</figcaption>
+</figure>
+
+<figure>
+<img src="https://i.imgur.com/ZXLEvU3.jpg">
+<figcaption>River basins of USA, by Grasshopper Geography.</figcaption>
+</figure>
