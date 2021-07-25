@@ -129,5 +129,65 @@ elevation -= 0.05 * pow(water, 0.8) * pow(slope, 2.);
 
 <figure>
 <img src="https://i.imgur.com/ZXLEvU3.jpg">
-<figcaption>River basins of USA, by Grasshopper Geography.</figcaption>
+<figcaption>River basins of USA, by <a href="https://www.grasshoppergeography.com/"></a>Grasshopper Geography</a>.</figcaption>
+</figure>
+
+<h2 class="num">Global climate</h2>
+
+<p>Simulating the climate system of an entire planet is a daunting task, but luckily it turns out that it can be approximated relatively easily. The driving force behind everything in my climate simulation is a procedurally generated map of the <a href="https://en.wikipedia.org/wiki/Atmospheric_pressure#Mean_sea-level_pressure">mean sea-level pressure (MSLP)</a>.
+
+<p>According to <a href="https://web.archive.org/web/20130619132254/http://jc.tech-galaxy.com/bricka/climate_cookbook.html">the Climate Cookbook</a>, the main ingredients in creating a MSLP map are where the landforms are located amidst the ocean, and the impact of latitude. In fact, if you take data from a real MSLP map of the Earth, separate out locations according to whether they are land or ocean, and plot the MSLP against latitude, you end up with two sinusoidal curves for the land and ocean with slightly different shapes.
+
+<p>By fitting the parameters appropriately, I came up with a crude model of the annual mean pressure (here the <code>lat</code>itude is measured in degrees):
+
+<pre><code class="glsl">
+if (land) {
+    mslp = 1012.5 - 6. * cos(lat*PI/45.);
+} else { // ocean
+    mslp = 1014.5 - 20. * cos(lat*PI/30.);
+}
+</code></pre>
+
+<p>Of course, this isn't quite enough to generate a realistic MSLP map, as generating values for the land and ocean separately results in sharp discontinuities at the boundaries between them. In reality, MSLP smoothly varies across the transition from ocean to land, due to the local diffusion of gas pressure. This diffusion process can be approximated quite well by simply applying a <a href="https://en.wikipedia.org/wiki/Gaussian_blur">Gaussian blur</a> to the MSLP map (with a standard deviation of 10--15 degrees).
+
+<p>To allow for the climate to change along with the seasons, it's necessary to also model the difference in MSLP between January and July. Once again, terrestrial data suggests this follows a sinusoidal pattern. By fitting parameters and applying a Gaussian blur, this can be combined with the annual MSLP map to generate dynamic climate patterns which vary throughout the year.
+
+<pre><code class="glsl">
+if (land) {
+    delta = 15. * sin(lat*PI/90.);
+} else { // ocean
+    delta = 20. * sin(lat*PI/35.) * abs(lat)/90.;
+}
+</code></pre>
+
+<p>Now, with the MSLP in hand, it is possible to generate wind currents and temperatures. In reality it's the temperate which generates the pressure, but correlation is correlation. This requires a little more fiddling to generate realistic values (<code>season</code> oscillates between -1 and 1 throughout the year):
+
+<pre><code class="glsl">
+float temp = 40. * tanh(2.2 * exp(-0.5 * pow((lat + 5. * season)/30., 2.)))
+             - 15. - (mslp - 1012.) / 1.8 + 1.5 * land - 4. * elevation;
+</code></pre>
+
+<p>Wind tends to move from high-pressure to low, but at a global scale we also need to account for the <a href="https://en.wikipedia.org/wiki/Coriolis_force">Coriolis force</a>, which is responsible for causing winds to circulate <em>around</em> pressure zones (<code>grad</code> is the MSLP gradient vector):
+
+<pre><code class="glsl">
+vec2 coriolis = 15. * sin(lat*PI/180.) * vec2(-grad.y, grad.x);
+vec2 velocity = coriolis - grad;
+</code></pre>
+
+<p>Although a relatively crude simulation, this generates remarkably <a href="https://gist.github.com/davidar/229193b04bdb0dd8cba20dc31592625a">realistic</a> wind circulation patterns. If you look closely, you may notice a number of natural phenomena being replicated, including the reversal of winds over India during the monsoon season:
+
+<figure>
+<iframe src="https://www.shadertoy.com/embed/MdGBWG" width="640" height="360"></iframe>
+</figure>
+
+<p>As a final detail, precipitation can be simulated by advecting water vapour from the ocean, through the wind vector field, and onto the land:
+
+<figure>
+<iframe src="https://www.shadertoy.com/embed/MdKfWK" width="640" height="360"></iframe>
+</figure>
+
+<p>The advection is implemented in a similar manner to fluid simulations:
+
+<figure>
+<iframe src="https://www.shadertoy.com/embed/XlsBDf" width="640" height="360"></iframe>
 </figure>
