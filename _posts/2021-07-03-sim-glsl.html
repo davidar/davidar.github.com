@@ -2,7 +2,7 @@
 title: Simulating worlds on the GPU
 subtitle: Four billion years in four minutes
 image: https://i.vimeocdn.com/video/717923611
-abstract: This is the first in a series of posts explaining my <a href="https://www.shadertoy.com/view/XttcWn">procedural earth simulation</a>, written entirely in GLSL fragment shaders. It simulates the complete history of an earth-like planet in a few minutes, with the simulation updating at 60 frames per second.
+abstract: This post delves into the implementation of my <a href="https://www.shadertoy.com/view/XttcWn">procedural earth simulation</a>, written entirely in GLSL fragment shaders. It simulates the complete history of an earth-like planet in a few minutes, with the simulation updating at 60 frames per second.
 layout: texify
 ---
 
@@ -216,3 +216,13 @@ c.xyz += dt * c.xyz * vec3(dx, dy, dz);
 <img src="http://www.evsc.net/v8/wp/wp-content/uploads/2010/10/dictyo1.jpg">
 <figcaption><a href="http://www.evsc.net/projects/reaction-diffusion-2">Spiral waves in colonies of mold</a>.</figcaption>
 </figure>
+
+<h2 class="num">Humanity</h2>
+
+<blockquote>
+<p>Concluding the prelude on the early earth, the pace slows to a cycle between day and night, terrain becoming fixed as tectonic movements become imperceptible. Soon the night reveals unprecedented patterns of light, as humanity proceeds to colonise the surface of the planet.
+
+<p>This rapid expansion brings its own set of changes, as humans begin to burn large amounts of fossil fuels to power their settlements. Carbon that had lain dormant for millions of years is released into the atmosphere, and dispersed around the planet.
+
+<p>Over several hundred years, humans burn through all available fossil fuel resources, releasing five trillion tonnes of carbon into the atmosphere. This strengthens the greenhouse effect, <a href="https://www.nature.com/articles/nclimate3036">raising the global average temperature by almost 10 degrees Celsius</a>. Large regions of land around the equator are rendered uninhabitable by extreme temperatures, resulting in the disappearance of humanity from a significant portion of the planet.
+</blockquote>
