@@ -8,7 +8,7 @@ layout: texify
 ---
 
 <figure>
-<iframe src="https://player.vimeo.com/video/283607168" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+<div class="embed-16-9"><iframe src="https://player.vimeo.com/video/283607168" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
 <figcaption>A video recording of the <a href="https://www.shadertoy.com/view/XttcWn">final shader</a>.</figcaption>
 </figure>
 
@@ -19,7 +19,7 @@ layout: texify
 </blockquote>
 
 <figure>
-<iframe src="https://www.shadertoy.com/embed/XsGBDt" width="640" height="360"></iframe>
+<div class="embed-16-9"><iframe src="https://www.shadertoy.com/embed/XsGBDt" width="640" height="360"></iframe></div>
 </figure>
 
 <p>The early earth was a <a href="https://en.wikipedia.org/wiki/Protoplanet">protoplanet</a>, red hot and heavily cratered by asteroid impacts. As my earth simulation is <em>entirely procedurally generated</em>, with no pre-rendered textures, the first task is to generate a map of this terrain. To calculate the <code>height</code> of the terrain at a given <code>lat</code>itude and <code>lon</code>gitude, first translate to 3D cartesian coordinates:
@@ -88,7 +88,7 @@ float craters(vec3 x) {
 <p>The formation of mountains, ocean trenches, and familiar continental landforms requires a model of tectonic movement. The simulation randomly generates seed locations for plates, with an initial velocity. These plates grow in size over time with a simple aggregation model, which randomly selects neighbouring points and adds them to a plate if they have not already been assigned to another plate. All of the pixels within a plate store the velocity of the plate's movement. The aggregation model is similar to that of a diffusion-limited aggregation (but without the diffusion):
 
 <figure>
-<iframe src="https://www.shadertoy.com/embed/ldK3RW" width="640" height="360"></iframe>
+<div class="embed-16-9"><iframe src="https://www.shadertoy.com/embed/ldK3RW" width="640" height="360"></iframe></div>
 </figure>
 
 <p>Continuous movement of the plates is difficult, as it would require plate boundaries to account for movements measured in fractions of a pixel. To avoid this, the plates are instead moved at discrete time-steps, by a whole pixel either horizontally or vertically. These times are randomised for each plate such that the average velocity is maintained at the set speed and direction, and also so that it is unlikely that neighbouring plates will move simultaneously.
@@ -98,7 +98,7 @@ float craters(vec3 x) {
 <p>Altogether this provides a decent simulation of the formation of continents with mountain ranges (which will be further improved with the introduction of hydraulic erosion in the next section):
 
 <figure>
-<iframe src="https://www.shadertoy.com/embed/XtffW8" width="640" height="360"></iframe>
+<div class="embed-16-9"><iframe src="https://www.shadertoy.com/embed/XtffW8" width="640" height="360"></iframe></div>
 </figure>
 
 <h2 class="num">Hydraulic erosion</h2>
@@ -118,7 +118,7 @@ elevation -= 0.05 * pow(water, 0.8) * pow(slope, 2.);
 <p>The interaction between the water flow and erosion results in the natural formation of river basins in the terrain:
 
 <figure>
-<iframe src="https://www.shadertoy.com/embed/XsVBRm" width="640" height="360"></iframe>
+<div class="embed-16-9"><iframe src="https://www.shadertoy.com/embed/XsVBRm" width="640" height="360"></iframe></div>
 </figure>
 
 <p>By colouring connected waterways (with the colour determined by the location of the river's mouth), it's possible to produce striking visualisations reminiscent of <a href="https://imgur.com/gallery/WaEbi">real river basin maps</a>:
@@ -178,19 +178,19 @@ vec2 velocity = coriolis - grad;
 <p>Although a relatively crude simulation, this generates remarkably <a href="https://gist.github.com/davidar/229193b04bdb0dd8cba20dc31592625a">realistic</a> wind circulation patterns. If you look closely, you may notice a number of natural phenomena being replicated, including the reversal of winds over India during the monsoon season:
 
 <figure>
-<iframe src="https://www.shadertoy.com/embed/MdGBWG" width="640" height="360"></iframe>
+<div class="embed-16-9"><iframe src="https://www.shadertoy.com/embed/MdGBWG" width="640" height="360"></iframe></div>
 </figure>
 
 <p>As a final detail, precipitation can be simulated by advecting water vapour from the ocean, through the wind vector field, and onto the land:
 
 <figure>
-<iframe src="https://www.shadertoy.com/embed/MdKfWK" width="640" height="360"></iframe>
+<div class="embed-16-9"><iframe src="https://www.shadertoy.com/embed/MdKfWK" width="640" height="360"></iframe></div>
 </figure>
 
 <p>The advection is implemented in a similar manner to fluid simulations:
 
 <figure>
-<iframe src="https://www.shadertoy.com/embed/XlsBDf" width="640" height="360"></iframe>
+<div class="embed-16-9"><iframe src="https://www.shadertoy.com/embed/XlsBDf" width="640" height="360"></iframe></div>
 </figure>
 
 <h2 class="num">Life</h2>
@@ -208,7 +208,7 @@ c.xyz += dt * c.xyz * vec3(dx, dy, dz);
 <p>The <code>xyz</code> elements of <code>c</code> represent the populations of vegetation, herbivores, and predators respectively. On a large scale, the dynamics of animal populations generate interesting patterns:
 
 <figure>
-<iframe src="https://www.shadertoy.com/embed/Xtcyzr" width="640" height="360"></iframe>
+<div class="embed-16-9"><iframe src="https://www.shadertoy.com/embed/Xtcyzr" width="640" height="360"></iframe></div>
 </figure>
 
 <p>In real life, these kinds of patterns are most easily seen with microbe populations in a petri dish, but the same laws govern large animal populations across the globe.
