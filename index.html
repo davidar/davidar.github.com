@@ -70,9 +70,9 @@ image: https://davidar.io/img/galahs.min.jpg
           <div class="container d-flex flex-column justify-content-between text-center h-100">
             <div></div>
             <div class="text-white">
-              <div id="quote" style="opacity:0; transition:opacity 0.8s linear">
-                <p id="quote-body" class="lead" style="text-shadow:0 1px 3px rgba(0,0,0,1)"></p>
-                <p style="text-align:right">&mdash; <a id="quote-src" class="text-white" href="#" rel="nofollow"></a></p>
+              <div id="quote" style="transition:opacity 0.8s linear">
+                <p id="quote-body" class="lead" style="text-shadow:0 1px 3px rgba(0,0,0,1)">INSUFFICIENT DATA FOR MEANINGFUL ANSWER</p>
+                <p style="text-align:right">&mdash; <a id="quote-src" class="text-white" href="https://www.multivax.com/last_question.html" rel="nofollow">Multivac</a></p>
               </div>
             </div>
             <div class="mb-5">
@@ -132,7 +132,11 @@ image: https://davidar.io/img/galahs.min.jpg
             {% for post in site.posts %}
             <div class="col-lg-4 col-md-6 mb-4">
               <div class="card">
-                <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                <div
+                  class="bg-image hover-overlay ripple d-flex justify-content-center align-items-center"
+                  data-mdb-ripple-color="light"
+                  style="height:15rem; background:black"
+                >
                   <img src="{{ post.image }}" style="max-height:15rem" class="img-fluid" loading="lazy" />
                   <a href="{{ post.url }}">
                     <div class="mask" style="background-color: rgba(251, 251, 251, 0.15)"></div>
@@ -163,7 +167,7 @@ image: https://davidar.io/img/galahs.min.jpg
       </div>
     </footer>
 
-    <script type="text/javascript">var quotes={% include quotes.json %};{% include quotes.min.js %}</script>
+    <script type="text/javascript">var quotes={% include quotes.json %};{% include quotes.js %}</script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.5.0/mdb.min.js"></script>
     <script async defer src="https://buttons.github.io/buttons.js"></script>
   </body>
