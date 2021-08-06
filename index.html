@@ -135,7 +135,7 @@ image: https://davidar.io/img/galahs.min.jpg
                 <div
                   class="bg-image hover-overlay ripple d-flex justify-content-center align-items-center"
                   data-mdb-ripple-color="light"
-                  style="height:15rem; background:black"
+                  style="height:15rem; {% if post.bg %}background:{{ post.bg }}{% endif %}"
                 >
                   <img src="{{ post.image }}" style="max-height:15rem" class="img-fluid" loading="lazy" />
                   <a href="{{ post.url }}">
@@ -146,7 +146,7 @@ image: https://davidar.io/img/galahs.min.jpg
                   <h5 class="card-title">
                     <a href="{{ post.url }}" class="text-reset">{{ post.title }}</a>
                   </h5>
-                  <p class="card-text">{{ post.abstract }}</p>
+                  <p class="card-text">{{ post.abstract | strip_html }}</p>
                 </div>
               </div>
             </div>
