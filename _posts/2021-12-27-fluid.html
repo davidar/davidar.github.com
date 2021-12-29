@@ -1,0 +1,159 @@
+---
+title: Fluid simulation in one tweet
+subtitle: 270 bytes of code
+author: David A Roberts
+image: /img/fluid-thumb.jpg
+bg: white
+abstract: This post dissects my tiny fluid simulation, implemented in a surprisingly small amount of code.
+layout: texify
+headerstyle: "background: linear-gradient(rgba(32,32,32,0.5), rgba(32,32,32,0.9)), url(/img/fluid.png);"
+---
+
+<figure>
+<div class="embed-16-9"><iframe src="https://player.vimeo.com/video/660348787" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+<figcaption>A video recording of the <a href="https://www.shadertoy.com/view/ftySzR">final shader</a>.</figcaption>
+</figure>
+
+<h2 class="num">Code in one tweet</h2>
+
+<blockquote class="twitter-tweet" data-lang="en" data-dnt="true" data-cards="hidden" data-align="center" style="text-align:center">
+<a href="https://twitter.com/david_ar/status/1473509263519608832" target="_blank">Click here to load the tweet</a>
+</blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>As with many of my <a href="/#posts">other simulations</a>, this is implemented in GLSL fragment shaders.
+To make it a bit easier to read, here's the code with extra whitespace, comments, and some minor edits for improved portability:
+
+<pre><code class="glsl">
+// Common
+#define M void mainImage(out vec4 r, vec2 u) { vec2 v, i = u-u; r -= r
+#define A texelFetch(iChannel0,ivec2(i+u),0)
+
+// Buffer A (iChannel0)
+M; for(int k=0; k++&lt;196;
+       v = A.xy+i,
+       r += vec4(v-i + v-v*A.z,1,1) * A.z / exp(dot(v,v)) / 3.142)
+     i = vec2(k%14,k/14)-7.;
+   r.xy /= r.z + 1e-6; // add epsilon to avoid division by zero
+   iFrame%500&lt;2 ? r += vec4(u/1e3-.5,.3,0) : r;}
+
+// Image
+M-1.+A.z;}
+</code></pre>
+
+<p>Of course, it's still not the easiest to read, as it's been heavily obfuscated to fit into 270 bytes (excluding whitespace and comments).
+I originally created it as a simplification of <a href="https://www.shadertoy.com/view/sl3Szs">this shader by lomateron</a>,
+with my version using only a single buffer and a fifth of the amount of code
+(much thanks to <a href="https://www.shadertoy.com/user/GregRostami">Greg</a> and <a href="https://www.shadertoy.com/user/FabriceNeyret2">Fabrice</a> for helping to shave off the final few bytes).
+However it can also be derived as an approximation to a more physically accurate fluid simulation model, which is helpful in understanding how it works.
+
+<h2 class="num">Fluid simulation</h2>
+
+<p>The simulation method we'll use is similar to <a href="https://michaelmoroz.github.io/Reintegration-Tracking/">reintegration tracking</a>, with two exceptions:
+
+<ul>
+<li>Cells don't store the particle position. Instead, at the beginning of each step, the particle is assumed to be located in the centre of the cell.
+<li>The particle distribution is Gaussian, and instead of integrating the density over the cell area, we simply evaluate the Gaussian density at the centre of the cell.
+</ul>
+
+<p>These simplifications make it much easier to implement, as we only need to store three values per pixel, and don't need to evaluate any integrals.
+Each simulation step performs the following calculations, at each cell of the simulation grid:
+
+<ul>
+<li>Lookup the current mass and velocity from the texture, and move the particle away from the centre of the cell according to its velocity.
+<li>Then blur/smear the particle's mass and momentum over neighbouring cells, weighted by a Gaussian distribution centred on the particle.
+</ul>
+
+<p>In fact, the shader needs to do this operation in reverse: instead of moving the particle at the current cell into neighbouring cells, it considers all of the neighbouring cells which will contribute to the current cell.
+The precise number of neighbours that are considered isn't too important, so long as it's large enough to capture all of the cells with a non-negligible contribution (non-zero Gaussian density).
+This can be implemented with the following code:
+
+<pre><code class="glsl">
+void mainImage(out vec4 r, vec2 u) {
+    float m = 0.; vec2 p = vec2(0), i;
+
+    // iterate over neighbouring cells
+    for(i.x = -6.; i.x &lt;= 6.; i.x++)
+      for(i.y = -6.; i.y &lt;= 6.; i.y++) {
+        // mass, velocity, and relative position of neighbouring particle
+        vec4 A = texelFetch(iChannel0, ivec2(u + i), 0);
+        float mi = A.z;
+        vec2  vi = A.xy;
+        vec2  xi = i + vi; // move particle according to velocity
+
+        // Gaussian diffusion, sigma=sqrt(.5)
+        float G = exp(-dot(xi, xi)) / 3.142;
+
+        // advection
+        m += G * mi; // add the diffused mass that ends up in this cell
+        p += G * mi * vi; // momentum (p=m*v) contributed by neighbour
+    }
+
+    // calculate velocity from momentum
+    vec2 v = vec2(0);
+    if(m > 0.) v = p / m;
+</code></pre>
+
+<p>The next part of the simulation step computes particle forces, which act to push the fluid towards an equilibrium density \(\rho_0\).
+In other words, wherever the pressure is positive, the fluid is forced outwards, whereas regions of negative pressure get sucked inwards.
+A method of calculating this force is provided by <a href="https://en.wikipedia.org/wiki/Smoothed-particle_hydrodynamics">smoothed-particle hydrodynamics</a>:
+
+</p>
+\[ \begin{align*}
+    F &= - m_0 \sum_i m_i \left( P_0 + P_i \right) \nabla G(x_i) \\
+    \text{where }\nabla G(x_i) &= x_i G(x_i) \\
+    P_i &= m_i (m_i - \rho_0) \quad\text{approx pressure.} \\
+\end{align*} \]
+
+<p>This could be implemented with code such as:
+
+<pre><code class="glsl">
+float m0 = texelFetch(iChannel0, ivec2(u), 0).z;
+f += - m0 * mi * (m0*(m0 - rh0) + mi*(mi - rh0)) * G * xi;
+</code></pre>
+
+<p>However, it's possible to approximate it a bit further, to save a few extra bytes.
+In particular, dropping all of the terms which depend on the mass \(m_0\) of the particle in the current cell yields a simplified equation:
+
+</p>
+\[ F = \sum_i G(x_i) m_i (\rho_0 - m_i) x_i \]
+
+<p>This approximation does impact how physically accurate the simulation is.
+In particular, conservation of momentum is visibly affected, and smaller blobs of fluid tend to oscillate in an unstable manner.
+However, these features actually work quite nicely aesthetically speaking, so the loss is not too great.
+The code to implement these forces can be written like so:
+
+<pre><code class="glsl">
+    // fluid forces (smoothed particle hydrodynamics)
+    vec2 f = vec2(0);
+    float rho0 = 1.; // reference fluid density
+    for(i.x = -6.; i.x &lt;= 6.; i.x++)
+      for(i.y = -6.; i.y &lt;= 6.; i.y++)
+        // compute G, etc
+        f += G * mi * (rho0 - mi) * xi;
+
+    // add acceleration (f=m*a) to velocity
+    if(m > 0.) v += f / m;
+</code></pre>
+
+<p>Finally, it's necessary to specify some initial conditions for the fluid.
+A simple option is to splash in some extra fluid occasionally, with suitably varying velocity:
+
+<pre><code class="glsl">
+    // splash!
+    if(iFrame % 500 == 0) { // once every several seconds
+        m += 0.5; // add extra fluid
+        v += (u - iResolution.xy/2.) / 1000.; // velocity sprays outwards
+    }
+
+    r = vec4(v, m, 0); // store cell mass and velocity to texture
+}
+</code></pre>
+
+<h2 class="num">Live simulation</h2>
+
+The final product, running live in your browser via WebGL:
+
+<figure>
+<div class="embed-16-9"><iframe src="https://www.shadertoy.com/embed/ftySzR?gui=false&paused=false" width="640" height="360"></iframe></div>
+</figure>
