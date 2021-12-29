@@ -49,7 +49,8 @@ However it can also be derived as an approximation to a more physically accurate
 
 <h2 class="num">Fluid simulation</h2>
 
-<p>The simulation method we'll use is similar to <a href="https://michaelmoroz.github.io/Reintegration-Tracking/">reintegration tracking</a>, with two exceptions:
+<p>This section presents a deobfuscated version of the one-tweet code above.
+The simulation method we'll use is similar to <a href="https://michaelmoroz.github.io/Reintegration-Tracking/">reintegration tracking</a>, with two exceptions:
 
 <ul>
 <li>Cells don't store the particle position. Instead, at the beginning of each step, the particle is assumed to be located in the centre of the cell.
@@ -94,7 +95,7 @@ void mainImage(out vec4 r, vec2 u) {
     if(m > 0.) v = p / m;
 </code></pre>
 
-<p>The next part of the simulation step computes particle forces, which act to push the fluid towards an equilibrium density \(\rho_0\).
+<p>The next part of the simulation computes particle forces, which act to push the fluid towards an equilibrium density \(\rho_0\).
 In other words, wherever the pressure is positive, the fluid is forced outwards, whereas regions of negative pressure get sucked inwards.
 A method of calculating this force is provided by <a href="https://en.wikipedia.org/wiki/Smoothed-particle_hydrodynamics">smoothed-particle hydrodynamics</a>:
 
