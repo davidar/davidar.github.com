@@ -8,32 +8,33 @@ abstract: A self-contained version of <a href="/post/fluid">my tiny fluid simula
 layout: texify
 headerstyle: "background: linear-gradient(rgba(32,32,32,0.5), rgba(32,32,32,0.9)), url(/img/fluid.png);"
 ---
+
 <!--
 <figure style="box-shadow:0 3px 10px rgba(0,0,0,0.2)">
 <div class="embed-16-9"><iframe src="https://player.vimeo.com/video/660348787?autoplay=1&loop=1&muted=1" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
 </figure>
--->
 
 <figure style="box-shadow:0 3px 10px rgba(0,0,0,0.2)">
 <img src="/img/card-back.svg" style="width:100%">
 </figure>
+-->
 
 <!--if(!g.getShaderParameter(S,g.COMPILE_STATUS)) console.warn(`%23version 300 es\n`+s+`\n`+g.getShaderInfoLog(S))-->
 
 <figure>
 <div class="embed-16-9"><iframe width=600 height=300 src='
-data:text/html,<body style=margin:0 onload="i=2;c.width=W=innerWidth;c
-.height=H=innerHeight;t=35632;X=[];for(k in g=c.getContext`webgl2`)g[k
-.split(/(^.|[^a-z])/).map(s=>s[0]).join``]=g[k];with(g){P=crPr();for(B
-=[];i-->0;)biTe(x=3553,X[i]=crTe())|teIm2D(x,0,34836,W,H,0,6408,5126,c
-)|biFr(f=36160,B[i]=crFr())|frTe2D(f,36064,x,X[i],0);for(e of geSuEx()
-)geEx(e);C=s=>shSo(S=crSh(t++),`%23version 300 es\n`+s)|coSh(S)|atSh(P
-,S);C`out highp vec4 O;uniform sampler2D B;uniform int F;void main(){O
--=O;highp vec2 u=gl_FragCoord.xy,v,i;for(int k=169;k-->0;O+=vec4(0,v-i
-\n%23define A texelFetch(B,ivec2(i+u),0)\n+v-v*A.w,1)*A.w/exp(dot(v,v)
-)/3.142)i=vec2(k%2513,k/13)-6.,v=i+A.yz;O.yz/=O.w+1e-6;F%25500>1?O:O+=
-vec4(0,u/1e3-.1,.3);}`;C`void main(){gl_Position.w=gl_PointSize=1e4;}`
-;R=b=>biFr(f,b)|biTe(x,X[i%2])|geMi(x)|un1i(geUnLo(P,`F`),i)|drAr(0,0,
-1);liPr(P);usPr(P)}setInterval`R(B[i++%2])|R()`"><canvas id=c>
+data:text/html,<body style=margin:0 onload="i=2;c.height=H=innerHeight;
+c.width=W=innerWidth;t=35633;for(k in g=c.getContext`webgl2`)g[k.split(
+/(^.|[^a-z])/).map(s=>s[0]).join``]=g[k];with(g){for(e of geSuEx())geEx
+(e);P=crPr();for(X=[],B=[];i-->0;)biTe(x=3553,X[i]=crTe())|biFr(f=36160
+,B[i]=crFr())|teIm2D(x,0,34836,W,H,0,6408,5126,c)|frTe2D(f,36064,x,X[i]
+,0);C=s=>shSo(S=crSh(t--),`%23version 300 es\nint k;`+s)|coSh(S)|atSh(P
+,S);C`void main(){k=gl_VertexID;gl_Position.xy=vec2(k*4&4,k*2&4)-1.;}`;
+C(`out highp vec4 O;uniform sampler2D B;uniform int F;void main(){O-=O;
+\n%23define A texelFetch(B,ivec2(i+u),0)\nhighp vec2 u=gl_FragCoord.xy,
+v,i;for(k=169;k-->0;O+=vec4(0,v-i+v-v*A.w,1)*A.w/exp(dot(v,v))/3.142)i=
+vec2(k%2513,k/13)-6.,v=i+A.yz;O.yz/=O.w+1e-6;F%25500<2?O+=vec4(0,u/1e3-
+${H}./2e3,.3):O;}`);R=b=>biFr(f,b)|biTe(x,X[i%2])|geMi(x)|un1i(geUnLo(P
+,`F`),i)|drAr(4,0,3);liPr(P);usPr(P)}setInterval`R(B[i++%2])|R()`"><canvas id=c>
 '></iframe></div>
 </figure>
