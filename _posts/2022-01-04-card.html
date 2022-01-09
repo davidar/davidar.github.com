@@ -19,24 +19,44 @@ headerstyle: "background: linear-gradient(rgba(32,32,32,0.5), rgba(32,32,32,0.9)
 </figure>
 -->
 
-<!--if(!g.getShaderParameter(S,g.COMPILE_STATUS)) console.warn(`%23version 300 es\n`+s+`\n`+g.getShaderInfoLog(S))-->
+<!--
+if(!g.getShaderParameter(S,g.COMPILE_STATUS)) console.warn(`%23version 300 es\n`+s+`\n`+g.getShaderInfoLog(S))
+
+10.5757575758 x 17.7142857143
+90 x 55
+930
+
+(c*10.57) / (r*17.71) = 90/55
+c/r * 10.57/17.71 = 90/55
+c/r = 90/55 * 17.7142857143/10.57
+c/r = 2.7423853346
+
+cr = 930
+c = 930/r
+930/r^2 = 2.7423853346
+r = sqrt(930/2.7423853346) = 18.4
+c = 50.5016669148
+-->
 
 <figure>
 <div class="embed-16-9"><iframe width=600 height=300 src='
-data:text/html,<body onload="i=2;t=35633;c.width=W=innerWidth;c
-.height=H=innerHeight;for(k in g=c.getContext`webgl2`)g[k.split
-(/(^.|[^a-z])/).map(s=>s[0]).join``]=g[k];with(g){P=crPr();for(
-e of geSuEx())geEx(e);h=`%23version 300 es\nint k`;C=s=>shSo(S=
-crSh(t--),h+s)|coSh(S)|atSh(P,S);f=36160;for(X=[],B=[];i-->0;)
-biTe(x=3553,X[i]=crTe())|biFr(f,B[i]=crFr())|teIm2D(x,0,34836,W
-,H,0,6408,5126,c)|geMi(x)|frTe2D(f,36064,x,X[i],0);C`;void main
-(){k=gl_VertexID;gl_Position.xy=vec2(k*4&4,k*2&4)-1.;}`;C(`=169
-;out highp vec4 O;uniform sampler2D B;uniform int F;void main()
-{highp vec2 u=gl_FragCoord.yx,v,i;for(O-=O;k-->0;O+=vec4(0,v-i+
-\n%23define A texelFetch(B,ivec2(i+u).yx,0)\nv-v*A.w,1)*A.w/exp
-(dot(v,v))/3.142)i=vec2(k/13,k%2513)-6.,v=i+A.yz;O.yz/=O.w+1e-6
-;F%25500<2?O+=vec4(0,u/1e3-${H}./2e3,.3):O;}`);liPr(P);usPr(P);
-R=b=>biFr(f,b)|biTe(x,X[i%2])|uniform1i(geUnLo(P,`F`),i)|drAr(4
-,0,3)}setInterval`R(B[i++%2])|R()`"style=margin:0><canvas id=c>
+data:text/html,<body onload="c.height=H=innerHeight;c.
+width=W=innerWidth;for(k in g=c.getContext`webgl2`)g[k
+.split(/(^.|[^a-z])/).map(s=>s[0]).join``]=g[k];with(g
+){P=crPr();for(e of geSuEx())geEx(e);for(X=[],B=[],i=2
+;i-->0;t=35632)biTe(x=3553,X[i]=crTe())|biFr(f=36160,B
+[i]=crFr())|teIm2D(x,0,34836,W,H,0,6408,5126,c)|geMi(x
+)|frTe2D(f,36064,x,X[i],0);A=`texelFetch(B,ivec2(i+u).
+yx,0)`;C=s=>shSo(S=crSh(t++),`%23version 300 es\nint k
+=169;uniform sampler2D B;uniform highp int F;out highp
+ vec4 O;void main(){${s};}`)|coSh(S)|atSh(P,S);C(`O-=O
+;highp vec2 u=gl_FragCoord.yx,v,i;for(;k-->0;O+=vec4(0
+,v-i+v-v*${A}.w,1)*${A}.w/exp(dot(v,v))/3.142)i=vec2(k
+/13,k%2513)-6.,v=i+${A}.yz;O.yz/=O.w+1e-6;F<2?O+=vec4(
+0,u/1e3-${H}./2e3,.3):O`);C`k=gl_VertexID;gl_Position.
+xy=vec2(k*4&4,k*2&4)-1.`;liPr(P);usPr(P);R=b=>biFr(f,b
+)|biTe(x,X[i%2])|uniform1i(geUnLo(P,`F`),i%25500)|drAr
+(4,0,3)}setInterval`R(B[i++%2])|R()`" style=margin:0>
+<canvas id=c> David A Roberts https://davidar.io/card
 '></iframe></div>
 </figure>
