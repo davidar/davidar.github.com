@@ -17,7 +17,7 @@ headerstyle: "background: linear-gradient(rgba(32,32,32,0.5), rgba(32,32,32,0.9)
 <img src="/img/card-back.svg" style="width:100%">
 </figure>
 
-<h2>Overview</h2>
+<h2 class="num">Introduction</h2>
 
 <p>For some time I've wanted to create something similar to the <a href="https://fabiensanglard.net/rayTracing_back_of_business_card/">business card raytracer</a>:
 a piece of code that produces something interesting, but is short enough to fit onto a business card.
@@ -30,12 +30,14 @@ For this I took inspiration from some entries to the <a href="https://js1k.com/"
 in particular <a href="https://xem.github.io/articles/webgl_quest.html">MiniShadertoy</a> which provided a great starting point though lacked support for Shadertoy's multipass buffers,
 and <a href="https://js1k.com/2019-x/details/4157">this entry</a> which contained a couple of other useful techniques.
 
-<p>The code has been obfuscated quite a bit to fit in the size constraints, so I'll provide a high-level overview to help understand what it's doing.
-I've provided the source code in the form of a <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs">data URL</a> to make it easy to run --- all you need to do is type the code into the address bar of your browser and hit enter.
-If you're skeptical that it's truly self-contained, feel free to disconnect from the internet first to prove that it doesn't rely on loading any external resources.
+<p>I've provided the source code in the form of a <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs">data URL</a> to make it easy to run ---
+all you need to do is type the code into the address bar of your browser and hit enter!
+(If you're skeptical that it's truly self-contained, feel free to disconnect from the internet first to prove that it doesn't rely on loading any external resources.)
+
+<p>If you don't want to manually type in all that text, click "Go!" below to load the URL into an iframe, or tap the URL to copy it to your clipboard so you can paste it in your browser's address bar.
 
 <figure>
-<div class="embed-16-9"><iframe width="640" height="360" src='
+<input id="data-url" readonly type="text" style="width:90%" value='
 data:text/html,<body onload="c.height=H=innerHeight;c.
 width=W=innerWidth;for(k in g=c.getContext`webgl2`)g[k
 .split(/(^.|[^a-z])/).map(s=>s[0]).join``]=g[k];with(g
@@ -54,11 +56,17 @@ xy=vec2(k*4&4,k*2&4)-1.`;liPr(P);usPr(P);R=b=>biFr(f,b
 )|biTe(x,X[i%2])|uniform1i(geUnLo(P,`F`),i%25500)|drAr
 (4,0,3)}setInterval`R(B[i++%2])|R()`" style=margin:0>
 <canvas id=c> David A Roberts https://davidar.io/card
-'></iframe></div>
+' onclick='this.focus();this.select();document.execCommand("copy");'>
+<button type="button" onclick='document.getElementById("demo").src = document.getElementById("data-url").value'>Go!</button>
+<div class="embed-16-9" style="border:1px solid black; margin-top:0"><iframe width="640" height="360" id="demo"></iframe></div>
 </figure>
 
-<p>The data URL constructs a basic HTML page, including a canvas element to render to, then executes the JavaScript payload which performs several tasks, starting with resizing the canvas to fill the entire viewport, and constructing a WEBGL2 context.
-The remainder of the code requires numerous GL API calls, which can make things difficult in minimising the size of the code, as the API methods often have quite verbose names.
+<h2 class="num">Overview</h2>
+
+<p>The code has been obfuscated quite a bit to fit in the size constraints, so I'll provide a high-level overview to help understand what it's doing.
+The data URL constructs a basic HTML page, including a canvas element to render to, then executes the JavaScript payload which performs several tasks, starting with resizing the canvas to fill the entire viewport, and constructing a WEBGL2 context.
+
+<p>The remainder of the code requires numerous GL API calls, which can make things difficult in minimising the size of the code, as the API methods often have quite verbose names.
 Luckily there is a common trick to address this issue, described elsewhere as <a href="https://xem.github.io/articles/webgl_quest.html">method hashing</a> or <a href="https://marijnhaverbeke.nl/js1k/">mechanised abbreviation</a>.
 In short, it iterates over all of the available API methods and strips out most of the characters.
 
