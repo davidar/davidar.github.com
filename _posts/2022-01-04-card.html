@@ -1,6 +1,6 @@
 ---
-title: Business card
-subtitle: Fluid simulation
+title: Business card fluid simulator
+subtitle: Code on a card
 author: David A Roberts
 image: /img/card-back.svg
 bg: white
@@ -17,12 +17,29 @@ headerstyle: "background: linear-gradient(rgba(32,32,32,0.5), rgba(32,32,32,0.9)
 <img src="/img/card-back.svg" style="width:100%">
 </figure>
 
+<h2>Overview</h2>
+
+<p>For some time I've wanted to create something similar to the <a href="https://fabiensanglard.net/rayTracing_back_of_business_card/">business card raytracer</a>:
+a piece of code that produces something interesting, but is short enough to fit onto a business card.
+The tiny fluid simulation I described in <a href="/post/fluid">my previous post</a> provided the perfect opportunity,
+as the code for the simulator is remarkably short relative to the complex behaviour it exhibits.
+
+<p>However, it was written for <a href="https://www.shadertoy.com/">Shadertoy</a>, which is a complex webapp in itself, so doesn't quite meet the challenge of making the code self-contained.
+So, I set about wrapping in in the smallest amount of WEBGL boilerplate I could get away with, so that it can run without relying on any remote websites.
+For this I took inspiration from some entries to the <a href="https://js1k.com/">JS1K</a> contest,
+in particular <a href="https://xem.github.io/articles/webgl_quest.html">MiniShadertoy</a> which provided a great starting point though lacked support for Shadertoy's multipass buffers,
+and <a href="https://js1k.com/2019-x/details/4157">this entry</a> which contained a couple of other useful techniques.
+
+<p>The code has been obfuscated quite a bit to fit in the size constraints, so I'll provide a high-level overview to help understand what it's doing.
+I've provided the source code in the form of a <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URIs">data URL</a> to make it easy to run --- all you need to do is type the code into the address bar of your browser and hit enter.
+If you're skeptical that it's truly self-contained, feel free to disconnect from the internet first to prove that it doesn't rely on loading any external resources.
+
 <figure>
-<div class="embed-16-9"><iframe width=600 height=300 src='
+<div class="embed-16-9"><iframe width="640" height="360" src='
 data:text/html,<body onload="c.height=H=innerHeight;c.
 width=W=innerWidth;for(k in g=c.getContext`webgl2`)g[k
 .split(/(^.|[^a-z])/).map(s=>s[0]).join``]=g[k];with(g
-){P=crPr();for(e of geSuEx())geEx(e);for(X=[],B=[],i=2
+){for(e of geSuEx())geEx(e);P=crPr();for(X=[],B=[],i=2
 ;i-->0;t=35632)biTe(x=3553,X[i]=crTe())|biFr(f=36160,B
 [i]=crFr())|teIm2D(x,0,34836,W,H,0,6408,5126,c)|geMi(x
 )|frTe2D(f,36064,x,X[i],0);A=`texelFetch(B,ivec2(i+u).
@@ -39,3 +56,60 @@ xy=vec2(k*4&4,k*2&4)-1.`;liPr(P);usPr(P);R=b=>biFr(f,b
 <canvas id=c> David A Roberts https://davidar.io/card
 '></iframe></div>
 </figure>
+
+<p>The data URL constructs a basic HTML page, including a canvas element to render to, then executes the JavaScript payload which performs several tasks, starting with resizing the canvas to fill the entire viewport, and constructing a WEBGL2 context.
+The remainder of the code requires numerous GL API calls, which can make things difficult in minimising the size of the code, as the API methods often have quite verbose names.
+Luckily there is a common trick to address this issue, described elsewhere as <a href="https://xem.github.io/articles/webgl_quest.html">method hashing</a> or <a href="https://marijnhaverbeke.nl/js1k/">mechanised abbreviation</a>.
+In short, it iterates over all of the available API methods and strips out most of the characters.
+
+<p>My method of doing this is a little different than in the previous links, both to reduce the number of hash collisions, and to make the abbreviated names a little more readable.
+It uses a regex to split the <code>camelCase</code> names into separate words, and retains only the first two characters of each word.
+That is, <code>texImage2D</code> becomes <code>teIm2D</code>.
+
+<p>The shader relies on a number of WEBGL extensions, mostly involving floating point textures.
+Instead of just enabling these specific ones, it ends up being shorter just to loop over the supported extensions and enable them all.
+It then create two textures to <a href="https://en.wikipedia.org/wiki/Multiple_buffering">ping pong</a> between, with corresponding framebuffers:
+
+<pre><code class="js">
+for(i = 2; i-->0;) {
+    tex[i] = g.createTexture()
+    g.bindTexture(g.TEXTURE_2D, tex[i])
+    fbo[i] = g.createFramebuffer()
+    g.bindFramebuffer(g.FRAMEBUFFER, fbo[i])
+    g.texImage2D(g.TEXTURE_2D, 0, g.RGBA32F,
+        window.innerWidth, window.innerHeight,
+        0, g.RGBA, g.FLOAT, null)
+    g.generateMipmap(g.TEXTURE_2D)
+    g.framebufferTexture2D(g.FRAMEBUFFER,
+        g.COLOR_ATTACHMENT0, g.TEXTURE_2D, tex[i], 0)
+}
+</code></pre>
+
+<p>It also generates a mipmap for each texture.
+This isn't actually used by the shader, so the content of it doesn't particularly matter, it's just shorter than having to set filtering modes for the textures.
+The rendering function sets up the shader to render to one texture, and read from the other:
+
+<pre><code class="js">
+function render(buffer=null) {
+    g.bindFramebuffer(g.FRAMEBUFFER, buffer)
+    g.bindTexture(g.TEXTURE_2D, tex[frame % 2])
+    g.uniform1i(g.getUniformLocation(P,'F'), frame % 500)
+    g.drawArrays(g.TRIANGLES, 0, 3)
+}
+</code></pre>
+
+<p>The rendering loop, driven by <code>setInterval</code>, alternates between two rendering calls:
+
+<pre><code class="js">
+render(fbo[frame++ % 2])
+render()
+</code></pre>
+
+<p>The first renders to a texture, and the seconds renders the same image to the screen.
+It would likely be more efficient to render the texture to the screen, rather than running the simulation twice per frame, but this would have required a second shader program which would have added considerable length to the code.
+
+<p>Note that it's not necessary to construct a vertex array for the draw call,
+as the vertex shader uses a <a href="https://rauwendaal.net/2014/06/14/rendering-a-screen-covering-triangle-in-opengl/">clever trick</a> to automatically construct a triangle covering the entire screen.
+This is actually <a href="https://michaldrobot.com/2014/04/01/gcn-execution-patterns-in-full-screen-passes/">a little more efficient that the traditional fullscreen quad</a>.
+
+<p>Finally, the most important part of the code outside of all this boilerplate is the fragment shader, which is a modified version of the one described in <a href="/post/fluid">my previous post</a>.
