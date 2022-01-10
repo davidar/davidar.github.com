@@ -25,7 +25,7 @@ The tiny fluid simulation I described in <a href="/post/fluid">my previous post<
 as the code for the simulator is remarkably short relative to the complex behaviour it exhibits.
 
 <p>However, it was written for <a href="https://www.shadertoy.com/">Shadertoy</a>, which is a complex webapp in itself, so doesn't quite meet the challenge of making the code self-contained.
-So, I set about wrapping in in the smallest amount of WEBGL boilerplate I could get away with, so that it can run without relying on any remote websites.
+So, I set about wrapping it in the smallest amount of WEBGL boilerplate I could get away with, so that it can run without relying on any remote websites.
 For this I took inspiration from some entries to the <a href="https://js1k.com/">JS1K</a> contest,
 in particular <a href="https://xem.github.io/articles/webgl_quest.html">MiniShadertoy</a> which provided a great starting point though lacked support for Shadertoy's multipass buffers,
 and <a href="https://js1k.com/2019-x/details/4157">this entry</a> which contained a couple of other useful techniques.
@@ -64,11 +64,12 @@ xy=vec2(k*4&4,k*2&4)-1.`;liPr(P);usPr(P);R=b=>biFr(f,b
 <h2 class="num">Overview</h2>
 
 <p>The code has been obfuscated quite a bit to fit in the size constraints, so I'll provide a high-level overview to help understand what it's doing.
-The data URL constructs a basic HTML page, including a canvas element to render to, then executes the JavaScript payload which performs several tasks, starting with resizing the canvas to fill the entire viewport, and constructing a WEBGL2 context.
+The data URL constructs a basic HTML page, including a canvas element to render to.
+It then executes the JavaScript payload which performs several tasks, starting with resizing the canvas to fill the entire viewport, and constructing a WEBGL2 context.
 
 <p>The remainder of the code requires numerous GL API calls, which can make things difficult in minimising the size of the code, as the API methods often have quite verbose names.
 Luckily there is a common trick to address this issue, described elsewhere as <a href="https://xem.github.io/articles/webgl_quest.html">method hashing</a> or <a href="https://marijnhaverbeke.nl/js1k/">mechanised abbreviation</a>.
-In short, it iterates over all of the available API methods and strips out most of the characters.
+In short, it iterates over all of the available API methods and strips out most of the characters in their names.
 
 <p>My method of doing this is a little different than in the previous links, both to reduce the number of hash collisions, and to make the abbreviated names a little more readable.
 It uses a regex to split the <code>camelCase</code> names into separate words, and retains only the first two characters of each word.
