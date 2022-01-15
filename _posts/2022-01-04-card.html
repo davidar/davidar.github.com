@@ -61,6 +61,10 @@ vec4(k*4&4,k*2&4,1,2)-1.`;R=b=>biFr(f,b)|biTe(x,X[i%2]
 <div class="embed-16-9" style="border:1px solid black; margin-top:0"><iframe width="640" height="360" id="demo"></iframe></div>
 </figure>
 
+<p>Note that the code runs a low-accuracy simulation by default, for better compatibility with low-powered mobile devices.
+The video at the top of the page shows a higher accuracy version, which uses 32-bit floats rather than 16-bit.
+If you have a sufficiently powerful device, such as a desktop computer, you can unlock this by changing the magic number <code>34842</code> to <code>34836</code>.
+
 <h2 class="num">Overview</h2>
 
 <p>The code has been obfuscated quite a bit to fit in the size constraints, so I'll provide a high-level overview to help understand what it's doing.
