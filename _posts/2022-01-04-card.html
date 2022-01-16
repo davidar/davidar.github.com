@@ -38,24 +38,24 @@ all you need to do is type the code into the address bar of your browser and hit
 
 <figure>
 <input id="data-url" readonly type="text" style="width:80%" value='
-data:text/html,<body onload="c.height=H=innerHeight;c.
-width=W=innerWidth;for(k in g=c.getContext`webgl2`)g[k
-.split(/(^.|[^a-z])/).map(s=>s[0]).join``]=g[k];with(g
-){for(e of geSuEx())geEx(e);P=crPr();for(X=[],B=[],i=2
-;i-->0;t=35632)biTe(x=3553,X[i]=crTe())|biFr(f=36160,B
-[i]=crFr())|teIm2D(x,0,34842,W,H,0,6408,5126,c)|geMi(x
-)|frTe2D(f,36064,x,X[i],0);A=`texelFetch(B,ivec2(i+u).
-yx,0)`;C=s=>shSo(S=crSh(t++),`%23version 300 es\nint k
-=169;uniform sampler2D B;uniform highp int F;out highp
- vec4 O;void main(){${s};}`)|coSh(S)|atSh(P,S);C(`O-=O
-;highp vec2 u=gl_FragCoord.yx,v,i;for(;k-->0;O+=vec4(0
-,v-i+v-v*${A}.w,1)*${A}.w/exp(dot(v,v))/3.142)i=vec2(k
-/13,k%2513)-6.,v=i+${A}.yz;O.yz/=O.w+1e-6;F<2?O+=vec4(
-0,u/1e3-${H}./2e3,.3):O`);C`k=gl_VertexID;gl_Position=
-vec4(k*4&4,k*2&4,1,2)-1.`;R=b=>biFr(f,b)|biTe(x,X[i%2]
-)|uniform1i(geUnLo(P,`F`),i%25500)|drAr(4,0,3);liPr(P)
-;usPr(P)}setInterval`R(B[i++%2])|R()`" style=margin:0>
-<canvas id=c> David A Roberts https://davidar.io/card
+data:text/html,<body onload="i=2;c.height=H=innerHeight
+;c.width=W=innerWidth;for(k in g=c.getContext`webgl2`)g
+[k.split(/(^.|[^a-z])/).map(s=>s[0]).join``]=g[k];with(
+g){for(e of geSuEx())geEx(e);P=crPr();for(X=[],B=[];i--
+;t=35632)biTe(x=3553,X[i]=crTe())|teIm2D(x,0,34842,W,H,
+0,6408,5126,c)|biFr(f=36160,B[i]=crFr())|geMi(x)|frTe2D
+(f,36064,x,X[i],0);A=`texelFetch(B,ivec2(i+u).yx,0)`;C=
+s=>shSo(S=crSh(t++),`%23version 300 es\nout highp vec4 
+O;uniform highp int F;uniform sampler2D B;void main(){O
+-=O;int k=169;${s};}`)|coSh(S)|atSh(P,S);C(`highp vec2 
+u=gl_FragCoord.yx,v,i;for(;k-->0;O+=vec4(0,v-i+v-v*${A}
+.w,1)*${A}.w/exp(dot(v,v))/3.142)i=vec2(k/13,k%2513)-6.
+,v=i+${A}.yz;O.yz/=O.w+1e-6;F>1?O:O+=vec4(0,u/1e3-${H}.
+/2e3,.3)`);C`k=gl_VertexID;gl_Position=vec4(k*4&4,k*2&4
+,1,2)-1.`;R=b=>uniform1i(geUnLo(P,`F`),i%25500)|biFr(f,
+b)|biTe(x,X[i%2])|drAr(4,0,3);liPr(P);usPr(P)}L=_=>R(B[
+i++%2])|R()|requestAnimationFrame(L);L()"style=margin:0
+><canvas id=c> David A Roberts https://davidar.io/card
 ' onclick='this.focus();this.select();document.execCommand("copy");'>
 <button type="button" onclick='document.getElementById("demo").src = document.getElementById("data-url").value'>Go!</button>
 <div class="embed-16-9" style="border:1px solid black; margin-top:0"><iframe width="640" height="360" id="demo"></iframe></div>
