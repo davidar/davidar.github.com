@@ -58,13 +58,22 @@ i++%2])|R()|requestAnimationFrame(L);L()"style=margin:0
 ><canvas id=c> David A Roberts https://davidar.io/card
 ' onclick='this.focus();this.select();document.execCommand("copy");'>
 <button type="button" onclick='document.getElementById("demo").src = document.getElementById("data-url").value'>Go!</button>
-<div class="embed-16-9" style="border:1px solid black; margin-top:0"><iframe width="640" height="360" id="demo"></iframe></div>
+<div style="border:1px solid black;margin:0 auto;max-width:640px;max-height:360px">
+    <div class="embed-16-9" style="margin:0"><iframe width="640" height="360" id="demo"></iframe></div>
+</div>
 </figure>
 
 <p>Note that the code runs a low-accuracy simulation by default, for better compatibility with low-powered mobile devices.
 From my testing, it should work on most Android devices less than five years old, and <a href="https://caniuse.com/webgl2">iOS 15+</a>.
 The video at the top of the page shows a higher accuracy version, which uses 32-bit floats rather than 16-bit.
-If you have a sufficiently powerful device, such as a desktop computer, you can unlock this by changing the magic number <code>34842</code> to <code>34836</code>.
+If you have a sufficiently powerful device, such as a desktop computer, you can unlock this by changing the magic number <code>34842</code> to <code>34836</code>
+(click <a href="#" onclick='
+const data = document.getElementById("data-url");
+data.value = data.value.replace("34842","34836");
+const demo = document.getElementById("demo");
+if(demo.src) demo.src = data.value;
+return false;
+'>here</a> to replace it in the URL field above).
 
 <h2 class="num">Overview</h2>
 
