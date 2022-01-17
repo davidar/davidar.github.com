@@ -1,3 +1,4 @@
+<html><head><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
 <body onload="c.height=H=256;c.width=W=256;i=2;
 console.error = console.warn = (...args) => {
     errors.innerText += `ERROR ${args}\n`;
@@ -33,8 +34,8 @@ setInterval`R(B[i++%2])|R(null)`
 ">
 <canvas id=c></canvas>
 
-<pre id="errors"></pre>
-<pre id="logs"></pre>
+<pre style="white-space:pre-wrap" id="errors"></pre>
+<pre style="white-space:pre-wrap" id="logs"></pre>
 
 <script src="webgl-debug.js"></script>
 <script src="https://greggman.github.io/webgl-lint/webgl-lint.js" crossorigin data-gman-debug-helper='

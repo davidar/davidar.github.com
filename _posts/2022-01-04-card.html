@@ -37,7 +37,7 @@ all you need to do is type the code into the address bar of your browser and hit
 <p>If you don't want to manually type in all that text, click "Go!" below to load the URL into an iframe, or tap the URL to copy it to your clipboard so you can paste it in your browser's address bar.
 
 <figure>
-<input id="data-url" readonly type="text" style="width:80%" value='
+<input id="data-url" readonly type="text" style="width:67%" value='
 data:text/html,<body onload="i=2;c.height=H=innerHeight
 ;c.width=W=innerWidth;for(k in g=c.getContext`webgl2`)g
 [k.split(/(^.|[^a-z])/).map(s=>s[0]).join``]=g[k];with(
@@ -59,7 +59,7 @@ i++%2])|R()|requestAnimationFrame(L);L()"style=margin:0
 ' onclick='this.focus();this.select();document.execCommand("copy");'>
 <button type="button" onclick='document.getElementById("demo").src = document.getElementById("data-url").value'>Go!</button>
 <div style="border:1px solid black;margin:0 auto;max-width:640px;max-height:360px">
-    <div class="embed-16-9" style="margin:0"><iframe width="640" height="360" id="demo"></iframe></div>
+    <div class="embed-16-9" style="margin:0"><iframe width="640" height="360" scrolling="no" id="demo"></iframe></div>
 </div>
 </figure>
 
@@ -94,7 +94,7 @@ Instead of just enabling these specific ones, it ends up being shorter just to l
 It then create two textures to <a href="https://en.wikipedia.org/wiki/Multiple_buffering">ping pong</a> between, with corresponding framebuffers:
 
 <pre><code class="js">
-for(i = 2; i-->0;) {
+for(i = 2; i--;) {
     tex[i] = g.createTexture()
     g.bindTexture(g.TEXTURE_2D, tex[i])
     fbo[i] = g.createFramebuffer()
