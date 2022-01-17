@@ -19,7 +19,7 @@ headerstyle: "background: linear-gradient(rgba(32,32,32,0.5), rgba(32,32,32,0.9)
 
 <h2 class="num">Introduction</h2>
 
-<p>For some time I've wanted to create something similar to the <a href="https://fabiensanglard.net/rayTracing_back_of_business_card/">business card raytracer</a>:
+<p>For some time I've wanted to create something similar to the <a href="http://eastfarthing.com/blog/2016-01-12-card/">business card raytracer</a>:
 a piece of code that produces something interesting, but is short enough to fit onto a business card.
 The tiny fluid simulation I described in <a href="/post/fluid">my previous post</a> provided the perfect opportunity,
 as the code for the simulator is remarkably short relative to the complex behaviour it exhibits.
@@ -136,3 +136,24 @@ as the vertex shader uses a <a href="https://rauwendaal.net/2014/06/14/rendering
 This is actually <a href="https://michaldrobot.com/2014/04/01/gcn-execution-patterns-in-full-screen-passes/">a little more efficient that the traditional fullscreen quad</a>.
 
 <p>Finally, the most important part of the code outside of all this boilerplate is the fragment shader, which is a modified version of the one described in <a href="/post/fluid">my previous post</a>.
+
+<h2 class="num">Update</h2>
+
+<p>I've made a few changes to this code since publishing it, as I learnt about some of the things that can go wrong with WEBGL on different platforms:
+
+<ul>
+<li><p>On some platforms, initialising only some elements of builtin vectors like <code>gl_Position</code> results in the remaining elements defaulting to a sensible value.
+On other platforms it doesn't. Always explicitly initialise the entire vector.
+<li><p>Most modern mobile devices support <a href="https://developer.mozilla.org/en-US/docs/Web/API/EXT_color_buffer_float">float buffers</a>,
+but a decent number still lack <a href="https://developer.mozilla.org/en-US/docs/Web/API/OES_texture_float_linear">complete support for 32-bit float buffers</a>.
+<li><p>Using <code>setInterval</code> instead of <code>requestAnimationFrame</code> for animation is a bad idea.
+The former is much less verbose, and therefore quite attractive from a code-golfing perspective,
+but even if you're willing to look past <a href="https://researchhubs.com/post/computing/javascript/requestAnimationFrame.html">its more superficial deficiencies</a>,
+using it for the rendering loop can sometimes cause people's computers to freeze.
+The extra 20 or so bytes is unfortunate but worth it.
+<p><a href="https://ebenpackwood.com/posts/wavybits.html">I'm not the first person to have fallen into this trap.</a>
+Why didn't I simply use the abbreviation trick to shorten it?
+Because browsers like to throw exceptions for <a href="https://michalzalecki.com/why-using-localStorage-directly-is-a-bad-idea/">merely accessing some globals in some circumstances</a>.
+</ul>
+
+<p>Thanks to Jodie, Theron, and BrowserStack Live for help with testing.
