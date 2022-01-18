@@ -39,10 +39,10 @@ image: /img/galahs.min.jpg
             <!-- Left links -->
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link" href="#main">Projects</a>
+                <a class="nav-link" href="#posts">Posts</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#posts">Posts</a>
+                <a class="nav-link" href="#projects">Projects</a>
               </li>
             </ul>
           </div>
@@ -76,18 +76,46 @@ image: /img/galahs.min.jpg
               </div>
             </div>
             <div class="mb-5">
-              <a class="btn btn-outline-light btn-lg m-2" href="#main" role="button">Projects</a>
+              <a class="btn btn-outline-light btn-lg m-2" href="#posts" role="button">Posts</a>
             </div>
           </div>
         </div>
       </div>
     </header>
 
-    <main class="pt-5" id="main">
+    <main class="pt-5" id="posts">
       <div class="container">
         <section class="text-center">
-          <h4 class="my-4">Projects</h4>
+          <h4 class="my-4">Posts</h4>
+          <div class="row pt-2">
+            {% for post in site.posts %}
+            <div class="col-lg-4 col-md-6 mb-4">
+              <div class="card">
+                <div
+                  class="bg-image hover-overlay ripple d-flex justify-content-center align-items-center"
+                  data-mdb-ripple-color="light"
+                  style="height:15rem; {% if post.bg %}background:{{ post.bg }}{% endif %}"
+                >
+                  <img src="{{ post.image }}" style="max-height:15rem;width:100%" class="img-fluid" loading="lazy" />
+                  <a href="{{ post.url }}">
+                    <div class="mask" style="background-color: rgba(251, 251, 251, 0.15)"></div>
+                  </a>
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">
+                    <a href="{{ post.url }}" class="text-reset">{{ post.title }}</a>
+                  </h5>
+                  <p class="card-text">{{ post.abstract | strip_html }}</p>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </section>
 
+        <hr class="my-5" id="projects" />
+        <section class="pt-4">
+          <h4 class="mb-4 text-center">Projects</h4>
           <div class="row pt-2">
             {% for project in site.data.projects %}
             <div class="col-lg-4 col-md-6 mb-4">
@@ -118,35 +146,6 @@ image: /img/galahs.min.jpg
                     <br/>
                     {{ project.text }}
                   </p>
-                </div>
-              </div>
-            </div>
-            {% endfor %}
-          </div>
-        </section>
-
-        <hr class="my-5" id="posts" />
-        <section class="pt-4">
-          <h4 class="mb-4 text-center">Posts</h4>
-          <div class="row pt-2">
-            {% for post in site.posts %}
-            <div class="col-lg-4 col-md-6 mb-4">
-              <div class="card">
-                <div
-                  class="bg-image hover-overlay ripple d-flex justify-content-center align-items-center"
-                  data-mdb-ripple-color="light"
-                  style="height:15rem; {% if post.bg %}background:{{ post.bg }}{% endif %}"
-                >
-                  <img src="{{ post.image }}" style="max-height:15rem;width:100%" class="img-fluid" loading="lazy" />
-                  <a href="{{ post.url }}">
-                    <div class="mask" style="background-color: rgba(251, 251, 251, 0.15)"></div>
-                  </a>
-                </div>
-                <div class="card-body">
-                  <h5 class="card-title">
-                    <a href="{{ post.url }}" class="text-reset">{{ post.title }}</a>
-                  </h5>
-                  <p class="card-text">{{ post.abstract | strip_html }}</p>
                 </div>
               </div>
             </div>
