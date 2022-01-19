@@ -47,6 +47,15 @@ with my version using only a single buffer and a fifth of the amount of code
 (much thanks to <a href="https://www.shadertoy.com/user/GregRostami">Greg</a> and <a href="https://www.shadertoy.com/user/FabriceNeyret2">Fabrice</a> for helping to shave off the final few bytes).
 However it can also be derived as an approximation to a more physically accurate fluid simulation model, which is helpful in understanding how it works.
 
+<p>Note that the hack used to avoid division by zero reduces the visual quality of the simulation somewhat (the fluid tends to clump together more, and the splashes aren't quite as explosive).
+A better option is to explicitly check for zero:
+
+<pre><code class="glsl">
+if(r.z > 0.) r.xy /= r.z;
+</code></pre>
+
+<p>However, this has its own drawbacks, one being that it consumes a few more bytes, the other being that it can still result in division by zero problems on some platforms, particularly when 16-bit floats are being used.
+
 <h2 class="num">Fluid simulation</h2>
 
 <p>This section presents a deobfuscated version of the one-tweet code above.
