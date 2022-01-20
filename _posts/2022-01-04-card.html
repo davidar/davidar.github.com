@@ -63,17 +63,31 @@ i++%2])|R()|requestAnimationFrame(L);L()"style=margin:0
 </div>
 </figure>
 
-<p>Note that the code runs a low-accuracy simulation by default, for better compatibility with low-powered mobile devices.
+<h2 class="num">Higher quality</h2>
+
+<p>The code runs a low-accuracy simulation by default, for better compatibility with low-powered mobile devices.
 From my testing, it should work on most Android devices less than five years old, and <a href="https://caniuse.com/webgl2">iOS 15+</a>.
-The video at the top of the page shows a higher accuracy version, which uses 32-bit floats rather than 16-bit.
-If you have a sufficiently powerful device, such as a desktop computer, you can unlock this by changing the magic number <code>34842</code> to <code>34836</code>
-(click <a href="#" onclick='
+
+<p>The video at the top of the page shows a higher accuracy version, which has two minor changes:
+it uses 32-bit float buffers rather than 16-bit, and
+it explicitly checks for division by zero (described <a href="/post/fluid">here</a>).
+In the code, these changes correspond to:
+
+<ul>
+<li>changing the magic number <code>34842</code> to <code>34836</code>
+<li>replacing the statement <code>O.yz/=O.w+1e-6</code> with <code>if(O.w>0.)O.yz/=O.w</code>
+</ul>
+
+If you have a sufficiently powerful device, such as a desktop computer, you can unlock this by clicking
+<a href="#" onclick='
 const data = document.getElementById("data-url");
 data.value = data.value.replace("34842","34836");
+data.value = data.value.replace("O.yz/=O.w+1e-6","if(O.w>0.)O.yz/=O.w");
 const demo = document.getElementById("demo");
 if(demo.src) demo.src = data.value;
 return false;
-'>here</a> to replace it in the URL field above).
+'>here</a>.
+Scroll back up to the iframe above to see it in action.
 
 <h2 class="num">Overview</h2>
 
