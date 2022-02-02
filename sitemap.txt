@@ -1,0 +1,6 @@
+---
+---
+{% for page in site.pages %}
+https://{{ site.domain }}{{ page.url | remove: "index.html" }}{% endfor %}
+{% for post in site.posts %}
+https://{{ site.domain }}{{ post.url }}{% endfor %}
